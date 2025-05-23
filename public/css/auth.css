@@ -1,0 +1,179 @@
+/* ===============================
+   Background Fullscreen
+================================ */
+.auth-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+/* ===============================
+   Login Background
+================================ */
+.login-page {
+    background: url('../images/Loginbg.png') no-repeat right center;
+    background-size: cover;
+}
+
+/* ===============================
+   register Background
+================================ */
+.register-page {
+    background: url('../images/registerbg.png') no-repeat left center;
+    background-size: cover;
+}
+
+/* ===============================
+   Title Styling
+================================ */
+.auth-title {
+    font-size: 96px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    color: #FF6666;
+}
+
+/* ===============================
+   Form Styling (Shifted Right)
+================================ */
+.auth-form {
+    width: 450px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    position: absolute;
+    right: 10%; 
+}
+
+
+/* ===============================
+   Form Styling - Pindah ke Kiri
+================================ */
+.register-form {
+    width: 450px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    position: absolute;
+    left: 10%; 
+}
+
+/* ===============================
+   Spacing dalam Form
+================================ */
+.form-group {
+    margin-bottom: 32px; /* Memberikan lebih banyak jarak antar elemen */
+}
+
+.btn-rounded {
+    margin-top: 40px; /* Memberikan jarak lebih sebelum tombol Register */
+}
+
+
+/* ===============================
+   Rounded Input Fields
+================================ */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 25px; 
+    font-family: "Manrope", sans-serif;
+}
+
+/* ===============================
+   Back Button Position
+================================ */
+.btn-back {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    z-index: 10;
+}
+
+/* ===============================
+   Rounded Button Styles
+================================ */
+.btn-rounded {
+    width: 202px;
+    height: 59px;
+    padding: 15px 48px;
+    border-radius: 50px;
+    font-size: 26px;
+    font-weight: 400;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+    font-family: 'Manrope', sans-serif;
+    cursor: pointer;
+    background-color: #FF6666;
+    color: white;
+}
+
+.btn-rounded:hover {
+    background-color: #d93f1c;
+}
+
+
+/* ===============================
+   Center Align Login & Button
+================================ */
+.auth-title, .btn-rounded {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ===============================
+   Semi Bold Styling for Labels & Placeholders
+================================ */
+.auth-subtitle, .form-group label {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400; /* Semi-bold */
+    font-size: 18px;
+    color: #333;
+}
+
+.form-group input::placeholder {
+    font-family: 'Manrope', sans-serif;
+    
+    font-size: 18px;
+    color: #333;
+}
+
+/* ===============================
+   Body Text Alignment
+================================ */
+.auth-form {
+    text-align: left; /* Mengatur semua teks agar rata kiri */
+}
+
+/* ===============================
+   Forgot Password di Kanan
+================================ */
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 14px;
+    color: #F24822;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   Center Align Login & New Here? Text
+================================ */
+.auth-footer {
+    text-align: center;
+}
+
+

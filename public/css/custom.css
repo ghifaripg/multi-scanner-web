@@ -1,0 +1,395 @@
+/* ===============================
+Layout Umum
+================================ */
+body {
+background-color: #ffffff;
+font-family: "Manrope", sans-serif;
+margin: 0;
+padding: 0;
+}
+
+/* ===============================
+Container: Navbar & Footer
+================================ */
+.container-navbar,
+.container-footer {
+max-width: 1140px;
+margin: 0 auto;
+padding-left: 16px;
+padding-right: 16px;
+}
+
+/* ===============================
+Container: Halaman Utama / Konten
+================================ */
+.container-content {
+max-width: 960px;
+margin: 0 auto;
+padding-left: 16px;
+padding-right: 16px;
+padding-top: 50px;
+}
+
+/* ===============================
+Button Umum
+================================ */
+.btn-rounded {
+width: 202px;
+height: 59px;
+padding: 15px 48px;
+border-radius: 50px;
+font-size: 26px;
+font-weight: 400;
+text-align: center;
+text-decoration: none;
+border: none;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+transition: background-color 0.2s ease-in-out;
+font-family: "Manrope", sans-serif;
+cursor: pointer;
+white-space: nowrap;
+}
+
+/* Tombol Outline */
+.btn-outline {
+min-width: 202px;
+height: 59px;
+padding: 15px 48px;
+border-radius: 50px;
+font-size: 26px;
+font-weight: 400;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+border: 2px solid #F24822;
+color: #F24822;
+background-color: transparent;
+transition: all 0.3s ease-in-out;
+}
+
+.btn-outline:hover {
+background-color: #F24822;
+color: #ffffff;
+}
+
+/* Tombol Oranye Reusable */
+.btn-orange {
+width: 220px;
+height: 60px;
+padding: 12px 28px;
+font-size: 20px;
+font-weight: 500;
+background-color: #f24822;
+color: #ffffff;
+border: none;
+border-radius: 50px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 12px;
+transition: background-color 0.2s ease-in-out;
+}
+
+.btn-orange:hover {
+background-color: #d93f1c;
+}
+
+/* Tombol Back */
+.btn-back {
+background-color: #1a364c;
+color: #f24822;
+font-size: 24px;
+padding: 15px 36px;
+border-radius: 50px;
+position: absolute;
+}
+
+.btn-back:hover {
+background-color: #152c3d;
+}
+
+
+/* Tombol Scan */
+.btn-scan-now {
+Background-color: #1a364c !important;
+color: #f24822 !important;
+font-size: 24px;
+padding: 15px 36px;
+border-radius: 50px;
+}
+
+.btn-scan-now:hover {
+background-color: #d93f1c;
+color: #ffffff;
+}
+
+/* ===============================
+Ikon Tombol
+================================ */
+.icon-left,
+.icon-right {
+width: 32px;
+height: 32px;
+}
+
+.icon-left {
+margin-right: 16px;
+}
+
+.icon-right {
+margin-left: 16px;
+}
+
+
+/* ===============================
+   Scan Options Card Styling 
+================================ */
+.scan-card {
+    min-height: 480px; 
+    border-radius: 24px;
+    box-shadow: 0 6px 18px rgba(242, 72, 34, 0.1);
+    padding: 40px 25px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+
+.comment-card {
+min-height: 200px;
+border-radius: 16px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+padding: 20px;
+background-color: #ffffff;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.comment-card .card-body {
+text-align: left;
+font-size: 18px;
+color: #333;
+}
+
+.comment-card .card-footer {
+display: flex;
+align-items: center;
+padding-top: 10px;
+border-top: 1px solid #ddd;
+}
+
+.comment-card .card-footer img {
+width: 40px;
+height: 40px;
+margin-right: 10px;
+}
+
+.comment-card .card-footer div {
+text-align: left;
+}
+
+.comment-card .card-footer p {
+margin: 0;
+font-size: 16px;
+color: #555;
+}
+
+/* ===============================
+Scrollable Search Results
+================================ */
+.result-container {
+max-height: 400px;
+overflow-y: auto;
+border-radius: 50px;
+padding: 20px;
+background-color: #f8f9fa;
+}
+
+.scrollable-list .result-item {
+border-radius: 50px;
+padding: 15px;
+background-color: white;
+box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+
+/* ===============================
+Misc
+================================ */
+section {
+padding-top: 100px;
+padding-bottom: 100px;
+}
+
+.scroll-target {
+scroll-margin-top: 100px;
+}
+
+.shadow-orange {
+box-shadow: 0 5px 10px rgba(242, 72, 34, 0.3);
+}
+
+.scrollable-container {
+max-height: 400px;
+overflow-y: auto;
+border-radius: 50px;
+padding: 20px;
+background-color: #f8f9fa;
+margin-bottom: 40px;
+}
+
+
+/* ===============================
+   File Scanner Page Styling
+================================ */
+.file-scanner {
+    min-height: 680px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 32px 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===============================
+   File Input Styling
+================================ */
+.file-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-top: 30px; 
+}
+
+/* ===============================
+   Scan Button Styling
+================================ */
+.btn-scan {
+    background-color: #F24822;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 40px; 
+}
+
+/* ===============================
+   File Input Styling - Reusable
+================================ */
+.file-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-top: 25px;
+}
+
+/* ===============================
+   Scan Button Styling - Reusable
+================================ */
+.btn-scan {
+    background-color: #F24822;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+
+/* ===============================
+   URL Scanner Page Styling
+================================ */
+.url-scanner {
+    min-height: 680px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 32px 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===============================
+   URL Input Styling
+================================ */
+.url-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s ease-in-out;
+}
+
+.url-input:focus {
+    border-color: #F24822;
+    outline: none;
+}
+
+/* ===============================
+   Tooltip Helper - Reusable
+================================ */
+.url-helper,
+.file-helper,
+.email-helper {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* Email Scanner Helper */
+.email-helper::before {
+    content: "Example: email_file.eml";
+    display: block;
+}
+
+/* File Scanner Helper */
+.file-helper::before {
+    content: "Only .exe files ";
+    display: block;
+}
+
+
+/* ===============================
+   Background scanner
+================================ */
+.page-email-bg {
+    background: url('/images/EmailScannerPageBG.png') no-repeat center center;
+    background-size: cover;
+}
+
+.page-file-bg {
+    background: url('/images/FileScannerPageBG.png') no-repeat center center;
+    background-size: cover;
+}
+
+.page-url-bg {
+    background: url('/images/URLScannerPageBG.png') no-repeat center center;
+    background-size: cover;
+}
