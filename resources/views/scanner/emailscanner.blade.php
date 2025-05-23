@@ -13,7 +13,7 @@
           class="d-flex flex-column align-items-center">
       @csrf
       <label class="file-input">
-        Drop your file here or <span style="color: #F24822; font-weight: bold;">Choose File</span>
+        <span style="color: #F24822; font-weight: bold;">Choose File</span>
         <input type="file" name="file" class="form-control d-none" accept=".eml">
       </label>
       <p class="email-helper"></p>

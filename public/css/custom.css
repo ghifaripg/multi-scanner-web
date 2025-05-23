@@ -371,7 +371,7 @@ margin-bottom: 40px;
 
 /* File Scanner Helper */
 .file-helper::before {
-    content: "Only .exe files ";
+    content: "Only .exe & pdf files  ";
     display: block;
 }
 
