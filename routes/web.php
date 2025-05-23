@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
@@ -20,7 +23,7 @@ Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.
 Route::view('/history', 'history.index')->name('history');
 
 // Authentication Pages
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/register', 'auth.register')->name('register');
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-
+Route::get('/login', [LoginController::class, 'showLogin'])->name('show.login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/register', [RegisterController::class, 'showRegister'])->name('show.register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
