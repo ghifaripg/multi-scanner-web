@@ -393,3 +393,110 @@ margin-bottom: 40px;
     background: url('/images/URLScannerPageBG.png') no-repeat center center;
     background-size: cover;
 }
+
+/* ===============================
+   Upload Box
+================================ */
+.upload-box {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px 32px;
+    min-width: 300px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.upload-box:hover {
+    border-color: #F24822;
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #F24822;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* ===============================
+   Loading Screen
+================================ */
+.loading-screen {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-overlay {
+    text-align: center;
+    color: white;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #F24822;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===============================
+   Modal Comment
+================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -40%);
+    width: 260px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.modal-title {
+    font-size: 16px;
+    color: #333;
+}
+
+.modal-body textarea {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    resize: none;
+    font-size: 14px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}

@@ -3,20 +3,28 @@
 @section('content')
 <div class="max-w-3xl mx-auto p-6">
     <div class="text-center">
-        <img src="{{ asset($status === 'safe' ? 'images/SafeIcon.png' : 'images/NotSafeIcon.png') }}" class="mx-auto w-24 h-24 mb-4" alt="Status Icon">
+        {{-- Tentukan ikon berdasarkan status --}}
+        <img src="{{ asset(
+            $status === 'safe' ? 'images/SafeIcon.png' :
+            ($status === 'suspicious' ? 'images/SuspiciousIcon.png' : 'images/NotSafeIcon.png')
+        ) }}" class="mx-auto w-24 h-24 mb-4" alt="Status Icon">
         
+        {{-- Judul Status --}}
         <h1 class="text-3xl font-bold text-gray-800">
-            {{ $status === 'safe' ? 'Safe!' : 'Not Safe!' }}
+            {{ $status === 'safe' ? 'Safe!' : ($status === 'suspicious' ? 'Suspicious!' : 'Not Safe!') }}
         </h1>
 
+        {{-- Deskripsi Status --}}
         <p class="mt-2 text-gray-600">
             {{ $status === 'safe' 
-                ? 'No threats or suspicious activities were detected. The scanned input appears to be safe and does not show any signs of harmful content.' 
-                : 'Potential threats or suspicious activities have been detected. It is recommended not to proceed with this file/link/email without further inspection.' 
+                ? 'No threats or suspicious activities were detected. The scanned input appears to be safe.' 
+                : ($status === 'suspicious'
+                    ? 'Some potentially harmful indicators were found. It is advised to proceed with caution and conduct further inspection.'
+                    : 'Potential threats were detected. It is recommended not to proceed with this file/link/email without further review.') 
             }}
         </p>
 
-        {{-- Tombol --}}
+        {{-- Tombol Navigasi --}}
         <div class="mt-6 flex justify-center gap-4">
             <a href="{{ url()->previous() }}" class="bg-blue-900 text-white px-4 py-2 rounded-full shadow hover:bg-blue-800">← Back</a>
             <button onclick="openCommentModal()" class="bg-orange-500 text-white px-4 py-2 rounded-full shadow hover:bg-orange-600">Comment</button>
@@ -24,7 +32,7 @@
         </div>
     </div>
 
-    {{-- Komentar dummy --}}
+    {{-- Komentar Dummy --}}
     <div class="mt-10">
         <h2 class="text-xl font-semibold text-gray-700 mb-4">Comments</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -42,7 +50,6 @@
         </div>
     </div>
 </div>
-
 
 @include('partials.comment-modal')
 

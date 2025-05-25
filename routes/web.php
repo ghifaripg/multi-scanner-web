@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\FileScannerController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
@@ -8,6 +12,7 @@ Route::view('/', 'dashboard.index')->name('dashboard');
 // Scanner Pages
 Route::view('/url-scanner', 'scanner.urlscanner')->name('scanner.url');
 Route::view('/file-scanner', 'scanner.filescanner')->name('scanner.file');
+Route::post('/file-scanner', [FileScannerController::class, 'scan'])->name('scanner.file.submit');
 Route::view('/email-scanner', 'scanner.emailscanner')->name('scanner.email');
 
 // Scan Result Pages
@@ -20,7 +25,7 @@ Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.
 Route::view('/history', 'history.index')->name('history');
 
 // Authentication Pages
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/register', 'auth.register')->name('register');
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-
+Route::get('/login', [LoginController::class, 'showLogin'])->name('show.login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/register', [RegisterController::class, 'showRegister'])->name('show.register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');

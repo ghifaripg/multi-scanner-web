@@ -1,5 +1,5 @@
 @php
-    $isLoggedIn = Auth::check(); // Cek user login
+    $isLoggedIn = Auth::check();
 @endphp
 
 <style>
@@ -51,20 +51,22 @@
                         </ul>
                     </li>
 
-                    @if($isLoggedIn)
-                        <li class="nav-item">
-                            <a class="nav-link text-center" href="{{ url('/history') }}"
-                                style="font-size: 23px;">History</a>
-                        </li>
-                    @endif
+                    <div style="height: 30px; width: 2px; background-color: #F24822;"></div>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-center" href="{{ url('/history') }}"
+                            style="font-size: 23px;">History</a>
+                    </li>
                 </ul>
             </div>
 
             {{-- Kanan: Auth --}}
             <div class="d-flex align-items-center">
-                @if($isLoggedIn)
+                @if ($isLoggedIn)
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="font-size: 23px;">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            style="font-size: 23px;">
                             <i class="bi bi-person-circle"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
