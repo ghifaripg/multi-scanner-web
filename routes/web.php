@@ -5,12 +5,13 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FileScannerController;
+use App\Http\Controllers\UrlScannerController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
 
 // Scanner Pages
-Route::view('/url-scanner', 'scanner.urlscanner')->name('scanner.url');
+Route::get('/url-scanner', [UrlScannerController::class, 'showScanner'])->name('scanner.url');
 Route::view('/file-scanner', 'scanner.filescanner')->name('scanner.file');
 Route::post('/file-scanner', [FileScannerController::class, 'scan'])->name('scanner.file.submit');
 Route::view('/email-scanner', 'scanner.emailscanner')->name('scanner.email');
@@ -25,7 +26,10 @@ Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.
 Route::view('/history', 'history.index')->name('history');
 
 // Authentication Pages
-Route::get('/login', [LoginController::class, 'showLogin'])->name('show.login');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::get('/register', [RegisterController::class, 'showRegister'])->name('show.register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');

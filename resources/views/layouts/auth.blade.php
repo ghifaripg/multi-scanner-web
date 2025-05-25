@@ -8,5 +8,9 @@
 </head>
 <body class="auth-bg">
     @yield('content')
+
+    {{-- script --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

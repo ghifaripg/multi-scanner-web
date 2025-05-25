@@ -53,11 +53,17 @@
 
                     <div style="height: 30px; width: 2px; background-color: #F24822;"></div>
 
-
-                    <li class="nav-item">
-                        <a class="nav-link text-center" href="{{ url('/history') }}"
-                            style="font-size: 23px;">History</a>
-                    </li>
+                    @if ($isLoggedIn)
+                        <li class="nav-item">
+                            <a class="nav-link text-center" href="{{ url('/history') }}"
+                                style="font-size: 23px;">History</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link text-center" href="{{ url('/login') }}"
+                                style="font-size: 23px;">History</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
 
@@ -65,12 +71,21 @@
             <div class="d-flex align-items-center">
                 @if ($isLoggedIn)
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                            style="font-size: 23px;">
-                            <i class="bi bi-person-circle"></i>
+                        <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown" style="font-size: 23px;">
+                            <img src="{{ asset('images/User-Icon.svg') }}" alt="Profile" width="36" height="36" class="rounded-circle me-2">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 @else

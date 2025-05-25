@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -14,22 +16,29 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed',
+        // Validate the input
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ], [
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.confirmed' => 'Passwords do not match.',
         ]);
 
-        // Create a new user instance and save it to the database
-        DB::table('users')->insert([
+
+        // If validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Create the user
+        User::create([
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'password' => Hash::make($request->input('password')),
         ]);
 
-        dd($request);
-
-        // Redirect to the login page with a success message
-        return redirect('/login')->with('status', 'Registration successful! You can now log in.');
+        return redirect()->route('login')->with('status', 'Registration successful! You can now log in.');
     }
 }
-
