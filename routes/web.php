@@ -17,10 +17,11 @@ Route::post('/file-scanner', [FileScannerController::class, 'scan'])->name('scan
 Route::view('/email-scanner', 'scanner.emailscanner')->name('scanner.email');
 
 // Scan Result Pages
-//Route::view('/result-safe', 'result.safe')->name('result.safe');
-//Route::view('/result-unsafe', 'result.notsafe')->name('result.unsafe');
+Route::view('/result-safe', 'result.safe')->name('result.safe');
+Route::view('/result-unsafe', 'result.notsafe')->name('result.unsafe');
+Route::view('/result-suspicious', 'result.suspicious')->name('result.suspicious');
 Route::view('/full-report', 'result.fullreport')->name('result.full');
-Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
+//Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
 
 // History Page
 Route::view('/history', 'history.index')->name('history');

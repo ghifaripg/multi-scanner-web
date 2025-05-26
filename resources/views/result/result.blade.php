@@ -1,20 +1,19 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app')
 
 @section('content')
 <div class="max-w-3xl mx-auto p-6">
     <div class="text-center">
-        {{-- Tentukan ikon berdasarkan status --}}
+
         <img src="{{ asset(
             $status === 'safe' ? 'images/SafeIcon.png' :
             ($status === 'suspicious' ? 'images/SuspiciousIcon.png' : 'images/NotSafeIcon.png')
         ) }}" class="mx-auto w-24 h-24 mb-4" alt="Status Icon">
         
-        {{-- Judul Status --}}
+        
         <h1 class="text-3xl font-bold text-gray-800">
             {{ $status === 'safe' ? 'Safe!' : ($status === 'suspicious' ? 'Suspicious!' : 'Not Safe!') }}
         </h1>
 
-        {{-- Deskripsi Status --}}
         <p class="mt-2 text-gray-600">
             {{ $status === 'safe' 
                 ? 'No threats or suspicious activities were detected. The scanned input appears to be safe.' 
@@ -24,7 +23,6 @@
             }}
         </p>
 
-        {{-- Tombol Navigasi --}}
         <div class="mt-6 flex justify-center gap-4">
             <a href="{{ url()->previous() }}" class="bg-blue-900 text-white px-4 py-2 rounded-full shadow hover:bg-blue-800">← Back</a>
             <button onclick="openCommentModal()" class="bg-orange-500 text-white px-4 py-2 rounded-full shadow hover:bg-orange-600">Comment</button>
@@ -32,7 +30,6 @@
         </div>
     </div>
 
-    {{-- Komentar Dummy --}}
     <div class="mt-10">
         <h2 class="text-xl font-semibold text-gray-700 mb-4">Comments</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -58,4 +55,4 @@
         document.getElementById('commentModal').classList.remove('hidden');
     }
 </script>
-@endsection
+@endsection -->

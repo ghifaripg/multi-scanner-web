@@ -2,10 +2,10 @@
 Layout Umum
 ================================ */
 body {
-background-color: #ffffff;
-font-family: "Manrope", sans-serif;
-margin: 0;
-padding: 0;
+    background-color: #ffffff;
+    font-family: "Manrope", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /* ===============================
@@ -13,116 +13,116 @@ Container: Navbar & Footer
 ================================ */
 .container-navbar,
 .container-footer {
-max-width: 1140px;
-margin: 0 auto;
-padding-left: 16px;
-padding-right: 16px;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 /* ===============================
 Container: Halaman Utama / Konten
 ================================ */
 .container-content {
-max-width: 960px;
-margin: 0 auto;
-padding-left: 16px;
-padding-right: 16px;
-padding-top: 50px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 50px;
 }
 
 /* ===============================
 Button Umum
 ================================ */
 .btn-rounded {
-width: 202px;
-height: 59px;
-padding: 15px 48px;
-border-radius: 50px;
-font-size: 26px;
-font-weight: 400;
-text-align: center;
-text-decoration: none;
-border: none;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-transition: background-color 0.2s ease-in-out;
-font-family: "Manrope", sans-serif;
-cursor: pointer;
-white-space: nowrap;
+    min-width: 202px; 
+    height: 59px;
+    padding: 15px 48px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+    font-family: "Manrope", sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 /* Tombol Outline */
 .btn-outline {
-min-width: 202px;
-height: 59px;
-padding: 15px 48px;
-border-radius: 50px;
-font-size: 26px;
-font-weight: 400;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-border: 2px solid #F24822;
-color: #F24822;
-background-color: transparent;
-transition: all 0.3s ease-in-out;
+    min-width: 202px;
+    height: 59px;
+    padding: 15px 48px;
+    border-radius: 50px;
+    font-size: 26px;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #f24822;
+    color: #f24822;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
 }
 
 .btn-outline:hover {
-background-color: #F24822;
-color: #ffffff;
+    background-color: #f24822;
+    color: #ffffff;
 }
 
 /* Tombol Oranye Reusable */
 .btn-orange {
-width: 220px;
-height: 60px;
-padding: 12px 28px;
-font-size: 20px;
-font-weight: 500;
-background-color: #f24822;
-color: #ffffff;
-border: none;
-border-radius: 50px;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 12px;
-transition: background-color 0.2s ease-in-out;
+    min-width: 220px; 
+    height: 60px;
+    padding: 12px 28px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #f24822;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .btn-orange:hover {
-background-color: #d93f1c;
+    background-color: #d93f1c;
 }
 
 /* Tombol Back */
 .btn-back {
-background-color: #1a364c;
-color: #f24822;
-font-size: 24px;
-padding: 15px 36px;
-border-radius: 50px;
-position: absolute;
+    background-color: #1a364c;
+    color: #f24822;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 15px 36px;
+    border-radius: 50px;
+    position: absolute;
 }
 
 .btn-back:hover {
-background-color: #152c3d;
+    background-color: #152c3d;
 }
-
 
 /* Tombol Scan */
 .btn-scan-now {
-Background-color: #1a364c !important;
-color: #f24822 !important;
-font-size: 24px;
-padding: 15px 36px;
-border-radius: 50px;
+    background-color: #1a364c !important;
+    color: #f24822 !important;
+    font-size: 24px;
+    padding: 15px 36px;
+    border-radius: 50px;
 }
 
 .btn-scan-now:hover {
-background-color: #d93f1c;
-color: #ffffff;
+    background-color: #d93f1c;
+    color: #ffffff;
 }
 
 /* ===============================
@@ -130,27 +130,26 @@ Ikon Tombol
 ================================ */
 .icon-left,
 .icon-right {
-width: 32px;
-height: 32px;
+    width: 32px;
+    height: 32px;
 }
 
 .icon-left {
-margin-right: 16px;
+    margin-right: 16px;
 }
 
 .icon-right {
-margin-left: 16px;
+    margin-left: 16px;
 }
-
 
 /* ===============================
    Scan Options Card Styling 
 ================================ */
 .scan-card {
-    min-height: 480px; 
+    min-height: 480px;
     border-radius: 24px;
     box-shadow: 0 6px 18px rgba(242, 72, 34, 0.1);
-    padding: 40px 25px; 
+    padding: 40px 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -158,94 +157,92 @@ margin-left: 16px;
     background-color: #ffffff;
 }
 
-
 .comment-card {
-min-height: 200px;
-border-radius: 16px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-padding: 20px;
-background-color: #ffffff;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+    min-height: 200px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .comment-card .card-body {
-text-align: left;
-font-size: 18px;
-color: #333;
+    text-align: left;
+    font-size: 18px;
+    color: #333;
 }
 
 .comment-card .card-footer {
-display: flex;
-align-items: center;
-padding-top: 10px;
-border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
 }
 
 .comment-card .card-footer img {
-width: 40px;
-height: 40px;
-margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
 
 .comment-card .card-footer div {
-text-align: left;
+    text-align: left;
 }
 
 .comment-card .card-footer p {
-margin: 0;
-font-size: 16px;
-color: #555;
+    margin: 0;
+    font-size: 16px;
+    color: #555;
 }
 
 /* ===============================
 Scrollable Search Results
 ================================ */
 .result-container {
-max-height: 400px;
-overflow-y: auto;
-border-radius: 50px;
-padding: 20px;
-background-color: #f8f9fa;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
 }
 
 .scrollable-list .result-item {
-border-radius: 50px;
-padding: 15px;
-background-color: white;
-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
+    border-radius: 50px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 /* ===============================
 Misc
 ================================ */
 section {
-padding-top: 100px;
-padding-bottom: 100px;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 .scroll-target {
-scroll-margin-top: 100px;
+    scroll-margin-top: 100px;
 }
 
 .shadow-orange {
-box-shadow: 0 5px 10px rgba(242, 72, 34, 0.3);
+    box-shadow: 0 5px 10px rgba(242, 72, 34, 0.3);
 }
 
 .scrollable-container {
-max-height: 400px;
-overflow-y: auto;
-border-radius: 50px;
-padding: 20px;
-background-color: #f8f9fa;
-margin-bottom: 40px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    margin-bottom: 40px;
 }
-
 
 /* ===============================
    File Scanner Page Styling
@@ -273,20 +270,20 @@ margin-bottom: 40px;
     text-align: center;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.8);
-    margin-top: 30px; 
+    margin-top: 30px;
 }
 
 /* ===============================
    Scan Button Styling
 ================================ */
 .btn-scan {
-    background-color: #F24822;
+    background-color: #f24822;
     color: white;
     border-radius: 30px;
     padding: 10px 40px;
     font-size: 18px;
     font-weight: bold;
-    margin-top: 40px; 
+    margin-top: 40px;
 }
 
 /* ===============================
@@ -308,7 +305,7 @@ margin-bottom: 40px;
    Scan Button Styling - Reusable
 ================================ */
 .btn-scan {
-    background-color: #F24822;
+    background-color: #f24822;
     color: white;
     border-radius: 20px;
     padding: 10px 40px;
@@ -316,7 +313,6 @@ margin-bottom: 40px;
     font-weight: bold;
     margin-top: 30px;
 }
-
 
 /* ===============================
    URL Scanner Page Styling
@@ -348,7 +344,7 @@ margin-bottom: 40px;
 }
 
 .url-input:focus {
-    border-color: #F24822;
+    border-color: #f24822;
     outline: none;
 }
 
@@ -375,22 +371,21 @@ margin-bottom: 40px;
     display: block;
 }
 
-
 /* ===============================
    Background scanner
 ================================ */
 .page-email-bg {
-    background: url('/images/EmailScannerPageBG.png') no-repeat center center;
+    background: url("/images/EmailScannerPageBG.png") no-repeat center center;
     background-size: cover;
 }
 
 .page-file-bg {
-    background: url('/images/FileScannerPageBG.png') no-repeat center center;
+    background: url("/images/FileScannerPageBG.png") no-repeat center center;
     background-size: cover;
 }
 
 .page-url-bg {
-    background: url('/images/URLScannerPageBG.png') no-repeat center center;
+    background: url("/images/URLScannerPageBG.png") no-repeat center center;
     background-size: cover;
 }
 
@@ -408,14 +403,14 @@ margin-bottom: 40px;
 }
 
 .upload-box:hover {
-    border-color: #F24822;
+    border-color: #f24822;
 }
 
 .btn-remove {
     background: none;
     border: none;
     font-size: 18px;
-    color: #F24822;
+    color: #f24822;
     margin-left: 8px;
     cursor: pointer;
 }
@@ -447,20 +442,23 @@ margin-bottom: 40px;
     width: 50px;
     height: 50px;
     border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #F24822;
+    border-top: 4px solid #f24822;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* ===============================
-   Modal Comment
-================================ */
-
+   Modal Comment (Revised)
+   =============================== */
 .modal {
     display: none;
     position: fixed;
@@ -468,35 +466,76 @@ margin-bottom: 40px;
     left: 50%;
     top: 40%;
     transform: translate(-50%, -40%);
-    width: 260px;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
+    width: 280px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-family: "Manrope", sans-serif;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .modal-title {
-    font-size: 16px;
-    color: #333;
+    font-size: 18px;
+    color: #1a364c;
+    font-weight: 700;
+}
+
+.close {
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
 }
 
 .modal-body textarea {
     width: 100%;
-    padding: 6px;
-    border-radius: 4px;
-    resize: none;
+    padding: 8px;
     font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: none;
+    box-sizing: border-box;
 }
 
 .modal-footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 12px;
 }
+
+.btn-cancel, .btn-save {
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-cancel {
+    background-color: #1a364c;
+    color: white;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 4px;
+}
+
+.btn-save {
+    background-color: #f24822;
+    color: white;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 4px;
+}
+
+.btn-cancel:hover {
+    background-color: #152c3d;
+}
+
+.btn-save:hover {
+    background-color: #d93f1c;
+}
+
