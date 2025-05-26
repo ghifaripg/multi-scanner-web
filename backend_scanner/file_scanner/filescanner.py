@@ -3,7 +3,7 @@ import glob
 import hashlib
 import math
 import re
-import sys 
+import sys
 
 def load_all_hashes(directory, prefix):
     hashes = set()
@@ -50,7 +50,7 @@ def load_signatures(path="signatures.txt"):
 def scan_file(file_path):
     if not os.path.exists(file_path):
         return [f"❌ File not found: {file_path}"]
-    
+
     report = []
     verdicts = []
 
@@ -66,7 +66,7 @@ def scan_file(file_path):
     except Exception as e:
         return [f"❌ Error reading file: {e}"]
 
-    # Calculate hashes
+    # Hash calculation
     md5_hash = hashlib.md5(contents).hexdigest()
     sha1_hash = hashlib.sha1(contents).hexdigest()
     sha256_hash = hashlib.sha256(contents).hexdigest()
@@ -77,7 +77,7 @@ def scan_file(file_path):
         f"🔐 SHA-256: {sha256_hash}"
     ])
 
-    # Load hash databases
+    # Check known malware hashes
     md5_hashes = load_all_hashes("hashes", "md5")
     sha1_hashes = load_all_hashes("hashes", "sha1")
     sha256_hashes = load_all_hashes("hashes", "s256")
@@ -121,15 +121,23 @@ def scan_file(file_path):
         report.append("🚨 Result: Potential threat detected.")
         report.extend(verdicts)
 
+    # Status Tag for Laravel Controller
+    if not verdicts:
+        report.append("STATUS: SAFE")
+    elif any("Matched known" in v or "Signature match" in v for v in verdicts):
+        report.append("STATUS: NOT_SAFE")
+    else:
+        report.append("STATUS: SUSPICIOUS")
+
     return report
 
-# 🔹 Laravel akan mengirim file path langsung, tidak perlu input manual!
+# Entry whein called by Laravel
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("❌ No file path provided! Exiting...")
         sys.exit(1)
 
-    file_path = sys.argv[1]  # Path langsung dari Laravel
+    file_path = sys.argv[1]
     results = scan_file(file_path)
 
     print("\n=== SCAN REPORT ===")
