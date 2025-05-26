@@ -16,6 +16,7 @@
             <button type="submit" class="btn btn-scan">Scan</button>
         </form>
 
+
         <a href="/" class="btn-back position-absolute btn-rounded" style="bottom: 0; left: 0; margin: 24px;">
             <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
             Back

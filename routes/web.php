@@ -18,12 +18,18 @@ Route::view('/file-scanner', 'scanner.filescanner')->name('scanner.file');
 Route::post('/file-scanner', [FileScannerController::class, 'scan'])->name('scanner.file.submit');
 Route::view('/email-scanner', 'scanner.emailscanner')->name('scanner.email');
 
+Route::get('/result/safe/{scan_id}', [ResultController::class, 'safe'])->name('result.safe');
+Route::get('/result/suspicious/{scan_id}', [ResultController::class, 'suspicious'])->name('result.suspicious');
+Route::get('/result/notsafe/{scan_id}', [ResultController::class, 'notsafe'])->name('result.notsafe');
+Route::get('/result/full/{scan_id}', [ResultController::class, 'full'])->name('result.full');
+
+
 // Scan Result Pages
-Route::view('/result-safe', 'result.safe')->name('result.safe');
-Route::view('/result-unsafe', 'result.notsafe')->name('result.unsafe');
-Route::view('/result-suspicious', 'result.suspicious')->name('result.suspicious');
-Route::view('/full-report', 'result.fullreport')->name('result.full');
-//Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
+// Route::view('/result-safe', 'result.safe')->name('result.safe');
+// Route::view('/result-unsafe', 'result.notsafe')->name('result.notsafe');
+// Route::view('/result-suspicious', 'result.suspicious')->name('result.suspicious');
+// Route::view('/full-report', 'result.fullreport')->name('result.full');
+Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
 
 // History Page
 Route::view('/history', 'history.index')->name('history');

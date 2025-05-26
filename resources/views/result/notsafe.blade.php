@@ -27,7 +27,7 @@
                 Comment
             </button>
 
-            <a href="{{ route('result.full') }}" class="btn-orange btn-rounded"
+            <a href="{{ route('result.full', ['scan_id' => $scan_id]) }}" class="btn-orange btn-rounded"
                 style="font-size: 20px; padding: 12px 28px;">
                 Full Report
             </a>

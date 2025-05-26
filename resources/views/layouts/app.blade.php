@@ -31,7 +31,19 @@
 
     <!-- Custom JavaScript -->
     <script src="{{ asset('js/custom.js') }}"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    @if (session('scan_error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Access Denied',
+                text: '{{ session('scan_error') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 
 </body>
 
