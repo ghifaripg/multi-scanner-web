@@ -51,7 +51,6 @@
   </div>
 @endsection
 
-@section(section:'scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const fileForm = document.querySelector('form.exeForm');
@@ -147,4 +146,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
-@endsection
