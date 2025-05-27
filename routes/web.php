@@ -25,7 +25,7 @@ Route::get('/result/safe/{scan_id}', [ResultController::class, 'safe'])->name('r
 Route::get('/result/suspicious/{scan_id}', [ResultController::class, 'suspicious'])->name('result.suspicious');
 Route::get('/result/notsafe/{scan_id}', [ResultController::class, 'notsafe'])->name('result.notsafe');
 Route::get('/result/full/{scan_id}', [ResultController::class, 'full'])->name('result.full');
-
+Route::post('/comment', [ResultController::class, 'storeComment'])->name('comment.store');
 
 // Scan Result Pages
 // Route::view('/result-safe', 'result.safe')->name('result.safe');
