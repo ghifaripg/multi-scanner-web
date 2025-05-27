@@ -12,6 +12,7 @@ class CreateCommentsTable extends Migration
             $table->id(); // Auto-increment primary key
             $table->unsignedBigInteger('scan_id'); // Foreign key to scans
             $table->unsignedBigInteger('user_id'); // Foreign key to users
+            $table->string('comment');
             $table->timestamp('created_at')->useCurrent(); // Created timestamp
 
             // Foreign key constraints

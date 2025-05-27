@@ -10,6 +10,7 @@ class Comment extends Model
     protected $fillable = [
         'scan_id',
         'user_id',
+        'comment',
         'created_at',
     ];
 
