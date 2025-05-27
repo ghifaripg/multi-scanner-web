@@ -18,7 +18,7 @@
         <div class="uploadBox upload-box">
             
             {{-- Hidden file input --}}
-            <input type="file" name="file" class="fileInput d-none" accept=".eml">
+            <input type="file" name="email" class="fileInput d-none" accept=".eml">
 
             {{-- Default text --}}
             <div class="uploadText">
@@ -47,4 +47,123 @@
         Back
     </a>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const fileInput = document.querySelector('.fileInput');
+    const uploadBox = document.querySelector('.uploadBox');
+    const uploadText = document.querySelector('.uploadText');
+    const fileSelected = document.querySelector('.fileSelected');
+    const fileName = document.querySelector('.fileName');
+    const removeFileBtn = document.querySelector('.removeFileBtn');
+    const scanBtn = document.getElementById('scanBtn');
+    const form = document.querySelector('form');
+
+    // 1. Trigger file input when clicking the upload box
+    uploadBox.addEventListener('click', function(e) {
+        // Don't trigger if clicking on remove button
+        if (!e.target.classList.contains('btn-remove')) {
+            fileInput.click();
+        }
+    });
+
+    // 2. Handle file selection
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            const file = e.target.files[0];
+            if (validateFile(file)) {
+                updateFileDisplay(file.name);
+            }
+        }
+    });
+
+    // 3. Handle drag and drop
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        uploadBox.classList.add('dragover');
+    }
+
+    function unhighlight() {
+        uploadBox.classList.remove('dragover');
+    }
+
+    uploadBox.addEventListener('drop', function(e) {
+        const dt = e.dataTransfer;
+        const file = dt.files[0];
+        
+        if (file && validateFile(file)) {
+            fileInput.files = dt.files;
+            updateFileDisplay(file.name);
+        }
+    });
+
+    // 4. Remove file
+    removeFileBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        resetFileDisplay();
+    });
+
+    // 5. Form submission handling
+    form.addEventListener('submit', function(e) {
+        if (!fileInput.files.length) {
+            e.preventDefault();
+            alert('Please select an .eml file first');
+        }
+    });
+
+    // Helper functions
+    function validateFile(file) {
+        // Check file type
+        if (!file.name.endsWith('.eml')) {
+            alert('Only .eml files are allowed');
+            return false;
+        }
+        
+        // Check file size (10MB max)
+        if (file.size > 1024 * 1024 * 10) {
+            alert('File size must be less than 10MB');
+            return false;
+        }
+        
+        return true;
+    }
+
+    function updateFileDisplay(name) {
+        uploadText.classList.add('d-none');
+        fileSelected.classList.remove('d-none');
+        fileName.textContent = name;
+        scanBtn.disabled = false;
+        scanBtn.classList.remove('btn-disabled');
+    }
+
+    function resetFileDisplay() {
+        fileInput.value = '';
+        uploadText.classList.remove('d-none');
+        fileSelected.classList.add('d-none');
+        fileName.textContent = '';
+        scanBtn.disabled = true;
+        scanBtn.classList.add('btn-disabled');
+    }
+});
+</script>
+
 @endsection

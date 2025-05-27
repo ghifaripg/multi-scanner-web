@@ -5,6 +5,7 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FileScannerController;
+use App\Http\Controllers\EmailScannerController;
 use App\Http\Controllers\UrlScannerController;
 
 // Dashboard
@@ -17,8 +18,8 @@ Route::post('/url-scanner', [UrlScannerController::class, 'doScan'])->name('scan
 Route::view('/file-scanner', 'scanner.filescanner')->name('scanner.file');
 Route::post('/file-scanner', [FileScannerController::class, 'scan'])->name('scanner.file.submit');
 
-Route::view('/email-scanner', 'scanner.emailscanner')->name('scanner.email');
-Route::post('/email-scanner', [EmailScannerController::class, 'scan'])->name('scanner.email.submit');
+Route::get('/email-scanner', [EmailScannerController::class, 'showForm'])->name('scanner.email');
+Route::post('/email-scanner', [EmailScannerController::class, 'submit'])->name('scanner.email.submit');
 
 Route::get('/result/safe/{scan_id}', [ResultController::class, 'safe'])->name('result.safe');
 Route::get('/result/suspicious/{scan_id}', [ResultController::class, 'suspicious'])->name('result.suspicious');
