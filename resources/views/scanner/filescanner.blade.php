@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('partials.loading-overlay')
 
 @section('content')
   <div class="d-flex flex-column justify-content-center align-items-center position-relative"
@@ -9,9 +10,9 @@
     Upload a File for Basic Threat Check
     </h2>
 
-    {{-- Form Upload File --}}
+    {{-- Form --}}
     <form method="POST" enctype="multipart/form-data" action="{{ route('scanner.file.submit') }}"
-    class="d-flex flex-column align-items-center">
+    class="exeForm d-flex flex-column align-items-center" onsubmit="showLoadingOverlay()">
     @csrf
 
     {{-- Upload Box --}}
@@ -36,7 +37,11 @@
     <small class="text-muted mt-2">Only .exe & pdf files</small>
 
     {{-- Submit Button --}}
-    <button type="submit" class="btn btn-scan btn-disabled mt-4" id="scanBtn" disabled>Scan</button>
+    <button type="submit" class="btn btn-scan btn-disabled mt-4" id="scanBtn" disabled>
+      Scan
+    </button>
+    </form>
+
 
     {{-- Back Button --}}
     <a href="/" class="btn-back position-absolute btn-rounded" style="bottom: 0; left: 0; margin: 24px;">

@@ -153,38 +153,180 @@
 
 //     document.addEventListener("mouseup", () => isDragging = false);
 // });
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const fileInput = document.querySelector('.fileInput');
-    const uploadBox = document.querySelector('.uploadBox');
-    const uploadText = document.querySelector('.uploadText');
-    const fileSelected = document.querySelector('.fileSelected');
-    const fileName = document.querySelector('.fileName');
-    const removeFileBtn = document.querySelector('.removeFileBtn');
-    const scanBtn = document.getElementById('scanBtn');
-    const form = document.querySelector('form');
 
-    // 1. Trigger file input when clicking the upload box
-    uploadBox.addEventListener('click', function(e) {
-        // Don't trigger if clicking on remove button
+//Email dropbox previous
+// document.addEventListener('DOMContentLoaded', function() {
+//     // DOM Elements
+//     const fileInput = document.querySelector('.fileInput');
+//     const uploadBox = document.querySelector('.uploadBox');
+//     const uploadText = document.querySelector('.uploadText');
+//     const fileSelected = document.querySelector('.fileSelected');
+//     const fileName = document.querySelector('.fileName');
+//     const removeFileBtn = document.querySelector('.removeFileBtn');
+//     const scanBtn = document.getElementById('scanBtn');
+//     const form = document.querySelector('form');
+
+//     // 1. Trigger file input when clicking the upload box
+//     uploadBox.addEventListener('click', function(e) {
+//         // Don't trigger if clicking on remove button
+//         if (!e.target.classList.contains('btn-remove')) {
+//             fileInput.click();
+//         }
+//     });
+
+//     // 2. Handle file selection
+//     fileInput.addEventListener('change', function(e) {
+//         if (e.target.files.length > 0) {
+//             const file = e.target.files[0];
+//             if (validateFile(file)) {
+//                 updateFileDisplay(file.name);
+//             }
+//         }
+//     });
+
+//     // 3. Handle drag and drop
+//     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+//         uploadBox.addEventListener(eventName, preventDefaults, false);
+//     });
+
+//     function preventDefaults(e) {
+//         e.preventDefault();
+//         e.stopPropagation();
+//     }
+
+//     ['dragenter', 'dragover'].forEach(eventName => {
+//         uploadBox.addEventListener(eventName, highlight, false);
+//     });
+
+//     ['dragleave', 'drop'].forEach(eventName => {
+//         uploadBox.addEventListener(eventName, unhighlight, false);
+//     });
+
+//     function highlight() {
+//         uploadBox.classList.add('dragover');
+//     }
+
+//     function unhighlight() {
+//         uploadBox.classList.remove('dragover');
+//     }
+
+//     uploadBox.addEventListener('drop', function(e) {
+//         const dt = e.dataTransfer;
+//         const file = dt.files[0];
+        
+//         if (file && validateFile(file)) {
+//             fileInput.files = dt.files;
+//             updateFileDisplay(file.name);
+//         }
+//     });
+
+//     // 4. Remove file
+//     removeFileBtn.addEventListener('click', function(e) {
+//         e.stopPropagation();
+//         resetFileDisplay();
+//     });
+
+//     // 5. Form submission handling
+//     form.addEventListener('submit', function(e) {
+//         if (!fileInput.files.length) {
+//             e.preventDefault();
+//             alert('Please select an .eml file first');
+//         }
+//     });
+
+//     // Helper functions
+//     function validateFile(file) {
+//         // Check file type
+//         if (!file.name.endsWith('.eml')) {
+//             alert('Only .eml files are allowed');
+//             return false;
+//         }
+        
+//         // Check file size (10MB max)
+//         if (file.size > 1024 * 1024 * 10) {
+//             alert('File size must be less than 10MB');
+//             return false;
+//         }
+        
+//         return true;
+//     }
+
+//     function updateFileDisplay(name) {
+//         uploadText.classList.add('d-none');
+//         fileSelected.classList.remove('d-none');
+//         fileName.textContent = name;
+//         scanBtn.disabled = false;
+//         scanBtn.classList.remove('btn-disabled');
+//     }
+
+//     function resetFileDisplay() {
+//         fileInput.value = '';
+//         uploadText.classList.remove('d-none');
+//         fileSelected.classList.add('d-none');
+//         fileName.textContent = '';
+//         scanBtn.disabled = true;
+//         scanBtn.classList.add('btn-disabled');
+//     }
+// });
+
+/* ===============================
+   Email File Upload (.eml)
+   =============================== */
+document.addEventListener('DOMContentLoaded', function () {
+    const emailForm = document.querySelector('form.emailForm');
+    if (!emailForm) return;
+
+    const fileInput = emailForm.querySelector('.fileInput');
+    const uploadBox = emailForm.querySelector('.uploadBox');
+    const uploadText = emailForm.querySelector('.uploadText');
+    const fileSelected = emailForm.querySelector('.fileSelected');
+    const fileName = emailForm.querySelector('.fileName');
+    const removeFileBtn = emailForm.querySelector('.removeFileBtn');
+    const scanBtn = emailForm.querySelector('#scanBtn');
+
+    uploadBox.addEventListener('click', function (e) {
         if (!e.target.classList.contains('btn-remove')) {
             fileInput.click();
         }
     });
 
-    // 2. Handle file selection
-    fileInput.addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-            const file = e.target.files[0];
-            if (validateFile(file)) {
-                updateFileDisplay(file.name);
-            }
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && validateEmailFile(file)) {
+            updateFileDisplay(file.name);
         }
     });
 
-    // 3. Handle drag and drop
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         uploadBox.addEventListener(eventName, preventDefaults, false);
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.add('dragover'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('dragover'), false);
+    });
+
+    uploadBox.addEventListener('drop', function (e) {
+        const file = e.dataTransfer.files[0];
+        if (file && validateEmailFile(file)) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileDisplay(file.name);
+        }
+    });
+
+    removeFileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        resetFileDisplay();
+    });
+
+    emailForm.addEventListener('submit', function (e) {
+        if (!fileInput.files.length) {
+            e.preventDefault();
+            alert('Please select an .eml file first');
+        }
     });
 
     function preventDefaults(e) {
@@ -192,60 +334,113 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
     }
 
-    ['dragenter', 'dragover'].forEach(eventName => {
-        uploadBox.addEventListener(eventName, highlight, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        uploadBox.addEventListener(eventName, unhighlight, false);
-    });
-
-    function highlight() {
-        uploadBox.classList.add('dragover');
-    }
-
-    function unhighlight() {
-        uploadBox.classList.remove('dragover');
-    }
-
-    uploadBox.addEventListener('drop', function(e) {
-        const dt = e.dataTransfer;
-        const file = dt.files[0];
-        
-        if (file && validateFile(file)) {
-            fileInput.files = dt.files;
-            updateFileDisplay(file.name);
-        }
-    });
-
-    // 4. Remove file
-    removeFileBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        resetFileDisplay();
-    });
-
-    // 5. Form submission handling
-    form.addEventListener('submit', function(e) {
-        if (!fileInput.files.length) {
-            e.preventDefault();
-            alert('Please select an .eml file first');
-        }
-    });
-
-    // Helper functions
-    function validateFile(file) {
-        // Check file type
+    function validateEmailFile(file) {
         if (!file.name.endsWith('.eml')) {
             alert('Only .eml files are allowed');
             return false;
         }
-        
-        // Check file size (10MB max)
-        if (file.size > 1024 * 1024 * 10) {
+        if (file.size > 10 * 1024 * 1024) {
             alert('File size must be less than 10MB');
             return false;
         }
-        
+        return true;
+    }
+
+    function updateFileDisplay(name) {
+        uploadText.classList.add('d-none');
+        fileSelected.classList.remove('d-none');
+        fileName.textContent = name;
+        scanBtn.disabled = false;
+        scanBtn.classList.remove('btn-disabled');
+    }
+
+    function resetFileDisplay() {
+        fileInput.value = '';
+        uploadText.classList.remove('d-none');
+        fileSelected.classList.add('d-none');
+        fileName.textContent = '';
+        scanBtn.disabled = true;
+        scanBtn.classList.add('btn-disabled');
+    }
+});
+
+
+/* ===============================
+   File Upload (.exe, .pdf)
+   =============================== */
+document.addEventListener('DOMContentLoaded', function () {
+    const fileForm = document.querySelector('form.exeForm');
+    if (!fileForm) return;
+
+    const fileInput = fileForm.querySelector('.fileInput');
+    const uploadBox = fileForm.querySelector('.uploadBox');
+    const uploadText = fileForm.querySelector('.uploadText');
+    const fileSelected = fileForm.querySelector('.fileSelected');
+    const fileName = fileForm.querySelector('.fileName');
+    const removeFileBtn = fileForm.querySelector('.removeFileBtn');
+    const scanBtn = fileForm.querySelector('#scanBtn');
+
+    uploadBox.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('btn-remove')) {
+            fileInput.click();
+        }
+    });
+
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && validateFile(file)) {
+            updateFileDisplay(file.name);
+        }
+    });
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, preventDefaults, false);
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.add('dragover'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('dragover'), false);
+    });
+
+    uploadBox.addEventListener('drop', function (e) {
+        const file = e.dataTransfer.files[0];
+        if (file && validateFile(file)) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileDisplay(file.name);
+        }
+    });
+
+    removeFileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        resetFileDisplay();
+    });
+
+    fileForm.addEventListener('submit', function (e) {
+        if (!fileInput.files.length) {
+            e.preventDefault();
+            alert('Please select a .exe or .pdf file first');
+        }
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function validateFile(file) {
+        const allowed = ['.exe', '.pdf'];
+        const isValid = allowed.some(ext => file.name.endsWith(ext));
+        if (!isValid) {
+            alert('Only .exe and .pdf files are allowed');
+            return false;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size must be less than 10MB');
+            return false;
+        }
         return true;
     }
 
