@@ -374,7 +374,7 @@ section {
 /* ===============================
    Background scanner
 ================================ */
-.page-email-bg {
+/* .page-email-bg {
     background: url("/images/EmailScannerPageBG.png") no-repeat center center;
     background-size: cover;
 }
@@ -387,7 +387,7 @@ section {
 .page-url-bg {
     background: url("/images/URLScannerPageBG.png") no-repeat center center;
     background-size: cover;
-}
+} */
 
 /* ===============================
    Upload Box
@@ -459,7 +459,7 @@ section {
 /* ===============================
    Modal Comment (Revised)
    =============================== */
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -538,4 +538,4 @@ section {
 .btn-save:hover {
     background-color: #d93f1c;
 }
-
+ */
