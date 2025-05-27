@@ -76,7 +76,8 @@
         </a>
 
         <div class="d-flex gap-3 position-absolute" style="bottom: 0; right: 0; margin: 24px;">
-            <button onclick="openCommentModal()" class="btn-orange btn-rounded"
+            <button class="btn-orange btn-rounded comment-btn"
+                data-scan-id="{{ $scan_id }}"
                 style="font-size: 20px; padding: 12px 28px;">
                 Comment
             </button>
@@ -89,5 +90,61 @@
 
     </div>
 
-    @include('partials.comment-modal')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle comment button clicks
+    document.querySelectorAll('.comment-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+            const scanId = this.getAttribute('data-scan-id');
+            
+            const { value: commentText } = await Swal.fire({
+                title: 'Add Comment',
+                input: 'textarea',
+                inputLabel: 'Your Comment',
+                inputPlaceholder: 'Type your comment here...',
+                inputAttributes: {
+                    'aria-label': 'Type your comment here'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancel',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to write something!';
+                    }
+                }
+            });
+
+            if (commentText) {
+                // Send the comment to your backend
+                try {
+                    const response = await fetch('/comments', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            scan_id: scanId,
+                            comment: commentText
+                        })
+                    });
+
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        Swal.fire('Success!', 'Comment added successfully', 'success');
+                    } else {
+                        Swal.fire('Error!', result.message || 'Failed to add comment', 'error');
+                    }
+                } catch (error) {
+                    Swal.fire('Error!', 'Something went wrong', 'error');
+                }
+            }
+        });
+    });
+});
+</script>
 @endsection
+

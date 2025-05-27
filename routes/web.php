@@ -9,6 +9,7 @@ use App\Http\Controllers\EmailScannerController;
 use App\Http\Controllers\UrlScannerController;
 use App\Http\Controllers\PreventController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\CommentController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
@@ -40,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
 // Route::view('/result-suspicious', 'result.suspicious')->name('result.suspicious');
 // Route::view('/full-report', 'result.fullreport')->name('result.full');
 Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
-
+Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
 // Authentication Pages
 
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
