@@ -50,3 +50,101 @@
     </a>
   </div>
 @endsection
+
+@section(section:'scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const fileForm = document.querySelector('form.exeForm');
+    if (!fileForm) return;
+
+    const fileInput = fileForm.querySelector('.fileInput');
+    const uploadBox = fileForm.querySelector('.uploadBox');
+    const uploadText = fileForm.querySelector('.uploadText');
+    const fileSelected = fileForm.querySelector('.fileSelected');
+    const fileName = fileForm.querySelector('.fileName');
+    const removeFileBtn = fileForm.querySelector('.removeFileBtn');
+    const scanBtn = fileForm.querySelector('#scanBtn');
+
+    uploadBox.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('btn-remove')) {
+            fileInput.click();
+        }
+    });
+
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && validateFile(file)) {
+            updateFileDisplay(file.name);
+        }
+    });
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, preventDefaults, false);
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.add('dragover'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('dragover'), false);
+    });
+
+    uploadBox.addEventListener('drop', function (e) {
+        const file = e.dataTransfer.files[0];
+        if (file && validateFile(file)) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileDisplay(file.name);
+        }
+    });
+
+    removeFileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        resetFileDisplay();
+    });
+
+    fileForm.addEventListener('submit', function (e) {
+        if (!fileInput.files.length) {
+            e.preventDefault();
+            alert('Please select a .exe or .pdf file first');
+        }
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function validateFile(file) {
+        const allowed = ['.exe', '.pdf'];
+        const isValid = allowed.some(ext => file.name.endsWith(ext));
+        if (!isValid) {
+            alert('Only .exe and .pdf files are allowed');
+            return false;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size must be less than 10MB');
+            return false;
+        }
+        return true;
+    }
+
+    function updateFileDisplay(name) {
+        uploadText.classList.add('d-none');
+        fileSelected.classList.remove('d-none');
+        fileName.textContent = name;
+        scanBtn.disabled = false;
+        scanBtn.classList.remove('btn-disabled');
+    }
+
+    function resetFileDisplay() {
+        fileInput.value = '';
+        uploadText.classList.remove('d-none');
+        fileSelected.classList.add('d-none');
+        fileName.textContent = '';
+        scanBtn.disabled = true;
+        scanBtn.classList.add('btn-disabled');
+    }
+});
+</script>
+@endsection
