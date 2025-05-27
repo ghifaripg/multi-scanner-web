@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Illuminate\Support\Facades\Log;
+use App\Models\Scan;
+use Illuminate\Support\Facades\Auth;
 
 class FileScannerController extends Controller
 {
@@ -18,66 +17,45 @@ class FileScannerController extends Controller
     public function scan(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:exe|max:51200', // 50MB max .exe
+            'file' => 'required|file|mimes:exe,pdf|max:51200', // 50MB max
         ]);
 
-        $path = $request->file('file')->store('uploads');
-        $absolutePath = storage_path('app/' . $path);
-        $scriptPath = base_path('backend_scanner/file_scanner/filescanner.py');
+        try {
+            $file = $request->file('file');
+            $userId = Auth::check() ? Auth::id() : 0;
 
-        if (!file_exists($absolutePath)) {
-            Log::error("❌ File tidak ditemukan: " . $absolutePath);
-            return back()->withErrors(['error' => 'Uploaded file not found.']);
+            // Send file to FastAPI
+            $userId = Auth::check() ? Auth::id() : 0;
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'http://127.0.0.1:8000/predict/file', [
+                'multipart' => [
+                    [
+                        'name'     => 'file',
+                        'contents' => fopen($file->getPathname(), 'r'),
+                        'filename' => $file->getClientOriginalName(),
+                    ],
+                ],
+            ]);
+
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            // Save scan result
+            $scan = Scan::create([
+                'user_id' => $userId,
+                'scan_title' => $file->getClientOriginalName(),
+                'scan_type' => 'file',
+                'scan_result' => $data['result'],
+                'full_report' => json_encode($data['features'], JSON_PRETTY_PRINT),
+            ]);
+
+            return match ($data['result']) {
+                'Safe' => redirect()->route('result.safe', ['scan_id' => $scan->id]),
+                'Suspicious' => redirect()->route('result.suspicious', ['scan_id' => $scan->id]),
+                default => redirect()->route('result.notsafe', ['scan_id' => $scan->id]),
+            };
+        } catch (\Exception $e) {
+            Log::error("File scan error: " . $e->getMessage());
+            return back()->with('error', 'File scanning failed. Please try again.');
         }
-
-        if (!file_exists($scriptPath)) {
-            Log::error("❌ Script Python tidak ditemukan: " . $scriptPath);
-            return back()->withErrors(['error' => 'Scanner backend not found.']);
-        }
-
-        Log::info("⏳ Menjalankan scanner Python untuk file: " . $absolutePath);
-        $process = new Process(["python3", $scriptPath, $absolutePath]);
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            Log::error("❌ Scanning gagal: " . $process->getErrorOutput());
-            return back()->withErrors(['error' => 'Scanning failed.']);
-        }
-
-        $output = explode("\n", trim($process->getOutput()));
-        Log::info("✅ Scanning selesai untuk file: " . $absolutePath);
-
-        // 🔎 Tentukan status berdasarkan string "STATUS: ..."
-        $status = "safe";
-        foreach ($output as $line) {
-            if (strpos($line, "STATUS: NOT_SAFE") !== false) {
-                $status = "not_safe";
-                break;
-            } elseif (strpos($line, "STATUS: SUSPICIOUS") !== false) {
-                $status = "suspicious";
-            }
-        }
-
-        $data = [
-            'reportLines' => $output,
-            'filename' => $request->file('file')->getClientOriginalName(),
-        ];
-
-        return match ($status) {
-            'safe' => view('scanner.safe', $data),
-            'suspicious' => view('scanner.suspicious', $data),
-            default => view('scanner.notsafe', $data),
-        };
-    }
-
-    public function downloadReport($filename)
-    {
-        $path = storage_path("reports/{$filename}.txt");
-
-        if (!file_exists($path)) {
-            return back()->withErrors(['error' => 'Report not found.']);
-        }
-
-        return response()->download($path);
     }
 }

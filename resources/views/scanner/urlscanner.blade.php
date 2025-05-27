@@ -7,13 +7,13 @@
         <h2 class="text-center fw-bold mb-5" style="color: #F24822; font-size: 44px;">Check a Link Before You Click</h2>
 
         {{-- Form Input URL --}}
-        <form method="POST" action="{{ route('scanner.url.submit') }}" class="w-50 d-flex flex-column align-items-center">
+        <form method="POST" action="{{ route('scanner.url.submit') }}" class="w-50 d-flex flex-column align-items-center" onsubmit="showLoadingOverlay()">
 
             @csrf
             <input type="text" id="url" name="url" class="form-control url-input"
                 placeholder="Enter a URL to scan">
             <p class="url-helper">Example: https://example.com</p>
-            <button type="submit" class="btn btn-scan">Scan</button>
+            <button type="submit" class="btn btn-scan mt-4" id="scanBtn">Scan</button>
         </form>
 
 

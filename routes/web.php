@@ -16,8 +16,9 @@ Route::view('/', 'dashboard.index')->name('dashboard');
 Route::get('/url-scanner', [UrlScannerController::class, 'showScanner'])->name('scanner.url');
 Route::post('/url-scanner', [UrlScannerController::class, 'doScan'])->name('scanner.url.submit');
 
-Route::view('/file-scanner', 'scanner.filescanner')->name('scanner.file');
+Route::get('/file-scanner', [FileScannerController::class, 'index'])->name('scanner.file');
 Route::post('/file-scanner', [FileScannerController::class, 'scan'])->name('scanner.file.submit');
+
 
 Route::get('/email-scanner', [EmailScannerController::class, 'showForm'])->name('scanner.email');
 Route::post('/email-scanner', [EmailScannerController::class, 'submit'])->name('scanner.email.submit');
