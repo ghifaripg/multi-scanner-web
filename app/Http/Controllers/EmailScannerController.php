@@ -45,7 +45,7 @@ class EmailScannerController extends Controller
             
             $scan = Scan::create([
                 'user_id' => Auth::id() ?? 1, // Simplified null coalescing
-                'scan_title' => $file->getClientOriginalName(),
+                'scan_title' => $data['header_analysis']['From'] ?? 'Unknown Sender',
                 'scan_type' => 'email',
                 'scan_result' => $data['final_assessment']['status'],
                 'full_report' => json_encode($data, JSON_PRETTY_PRINT),

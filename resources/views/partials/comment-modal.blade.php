@@ -1,3 +1,4 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -65,44 +66,9 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function openCommentModal() {
     $('#commentModal').modal('show');
 }
-
-$(document).ready(function() {
-    $('#saveCommentBtn').click(function() {
-        const formData = {
-            scan_id: $('#scan_id').val(),
-            comment: $('#comment-text').val(),
-            _token: $('input[name="_token"]').val()
-        };
-
-        $.ajax({
-            url: "{{ route('comment.store') }}",
-            type: "POST",
-            data: formData,
-            success: function(response) {
-                if (response.success) {
-                    $('#commentModal').modal('hide');
-                    $('#comment-text').val('');
-                    // You can show a success message here
-                    alert('Comment saved successfully!');
-                } else {
-                    // Show validation errors
-                    alert(response.message || 'Failed to save comment');
-                }
-            },
-            error: function(xhr) {
-                let errorMessage = 'An error occurred';
-                if (xhr.responseJSON && xhr.responseJSON.errors) {
-                    errorMessage = Object.values(xhr.responseJSON.errors).join('\n');
-                } else if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMessage = xhr.responseJSON.message;
-                }
-                alert(errorMessage);
-            }
-        });
-    });
-});
 </script>
