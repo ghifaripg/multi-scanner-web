@@ -5,7 +5,7 @@
         style="min-height: 680px; max-width: 1440px; margin: 0 auto; padding: 32px;">
 
         {{-- Icon dan Judul --}}
-        <div class="text-center mb-4" style="margin-top: -40px;">
+        <div class="text-center mb-4 mt-4">
             <img src="{{ asset('images/NotSafeIcon.png') }}" alt="Not Safe Icon" style="width: 100px; height: 100px;"
                 class="mb-3">
             <h1 class="fw-bold text-danger" style="font-size: 3rem;">Not Safe!</h1>
@@ -20,15 +20,6 @@
 
          {{-- Glimpse Before Scan --}}
         <section id="glimpse" class="scroll-target">
-            <div class="text-center mb-5">
-                <h1 class="fw-bold" style="color: #F24822;">A Glimpse Before You Scan</h1>
-                <p class="text-muted fs-4">
-                    Before you dive in, take a look at some early feedback from users who’ve explored our simple, web-based
-                    scanning
-                    features.
-                </p>
-            </div>
-
             {{-- Carousel --}}
             <div id="glimpseCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -97,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.comment-btn').forEach(button => {
         button.addEventListener('click', async function() {
             const scanId = this.getAttribute('data-scan-id');
-            
+
             const { value: commentText } = await Swal.fire({
                 title: 'Add Comment',
                 input: 'textarea',
@@ -132,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
 
                     const result = await response.json();
-                    
+
                     if (response.ok) {
                         Swal.fire('Success!', 'Comment added successfully', 'success');
                     } else {
