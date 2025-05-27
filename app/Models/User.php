@@ -35,4 +35,9 @@ class User extends Authenticatable
 
     // If your table name is not the plural of the model name
     protected $table = 'users';
+
+    public function scans()
+{
+    return $this->hasMany(Scan::class, 'user_id', 'user_id');
+}
 }

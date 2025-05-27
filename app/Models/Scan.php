@@ -14,4 +14,9 @@ class Scan extends Model
     protected $fillable = [
         'user_id', 'scan_title', 'scan_type', 'scan_result', 'full_report',
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id', 'user_id');
+}
 }

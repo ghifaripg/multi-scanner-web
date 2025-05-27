@@ -7,24 +7,27 @@
         <!-- Scrollable Scan History -->
         <div class="scrollable-container">
             <div class="d-flex flex-column gap-3">
-                @for ($i = 0; $i < 10; $i++) <!-- Test data for scroll -->
+                @forelse ($scans as $scan)
                     <div class="p-3 rounded-4 border d-flex justify-content-between align-items-center shadow-sm">
                         <div>
-                            <div class="fw-semibold">Scan Name {{ $i+1 }}</div>
-                            <small class="text-muted">Scan Type</small><br>
-                            <span class="text-muted">Safe/Not Safe</span>
+                            <div class="fw-semibold">{{ $scan->scan_title }}</div>
+                            <small class="text-muted">{{ $scan->scan_type }}</small><br>
+                            <span class="text-muted">{{ $scan->scan_result }}</span>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-2">
                             <small class="text-muted">
-                                <i class="bi bi-clock"></i> 19min ago
+                                <i class="bi bi-clock"></i> {{ $scan->created_at->format('Y-m-d') }}
                             </small>
                             <div class="d-flex gap-2">
-                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-5 px-3" style="color: #F24822">Full Report</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-5 px-3"
+                                    style="color: #F24822">Full Report</a>
                                 <button class="btn btn-outline-secondary btn-sm rounded-5 px-3 comment-btn">Comment</button>
                             </div>
                         </div>
                     </div>
-                @endfor
+                @empty
+                    <p class="text-muted">No scan history found.</p>
+                @endforelse
             </div>
         </div>
 
@@ -41,5 +44,5 @@
 
 {{-- JavaScript File Reference --}}
 @section('scripts')
-<script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\FileScannerController;
 use App\Http\Controllers\EmailScannerController;
 use App\Http\Controllers\UrlScannerController;
 use App\Http\Controllers\PreventController;
+use App\Http\Controllers\HistoryController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
@@ -29,15 +30,15 @@ Route::get('/result/notsafe/{scan_id}', [ResultController::class, 'notsafe'])->n
 Route::get('/result/full/{scan_id}', [ResultController::class, 'full'])->name('result.full');
 Route::post('/comment', [ResultController::class, 'storeComment'])->name('comment.store');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/history', [HistoryController::class, 'history'])->name('scan.history');
+});
 // Scan Result Pages
 // Route::view('/result-safe', 'result.safe')->name('result.safe');
 // Route::view('/result-unsafe', 'result.notsafe')->name('result.notsafe');
 // Route::view('/result-suspicious', 'result.suspicious')->name('result.suspicious');
 // Route::view('/full-report', 'result.fullreport')->name('result.full');
 Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
-
-// History Page
-Route::view('/history', 'history.index')->name('history');
 
 // Authentication Pages
 
