@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FileScannerController;
 use App\Http\Controllers\EmailScannerController;
 use App\Http\Controllers\UrlScannerController;
+use App\Http\Controllers\PreventController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
@@ -45,3 +46,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'showRegister'])->name('show.register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+Route::get('/prevent', [PreventController::class, 'index'])->name('prevent.index');
+

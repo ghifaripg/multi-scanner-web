@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use App\Models\Scan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Validator;
 
 class ResultController extends Controller
 {
@@ -53,7 +57,7 @@ class ResultController extends Controller
         $reportLines = explode("\n", $scan->full_report);
         $filename = $scan->scan_title;
 
-        return view('result.fullreport', compact('reportLines', 'filename'));
+        return view('result.fullreport', compact('reportLines', 'filename', 'scan'));
     }
 
         public function storeComment(Request $request)

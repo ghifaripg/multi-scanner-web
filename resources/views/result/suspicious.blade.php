@@ -11,7 +11,8 @@
             <h1 class="fw-bold text-warning" style="font-size: 3rem;">Suspicious</h1>
             <p class="text-dark" style="max-width: 700px; font-size: 1.25rem;">
                 The input contains elements that may be potentially harmful. Caution is advised and further review is
-                recommended.
+                recommended. See how to prevent <a href="{{ route('prevent.index') }}" target="_blank"
+                    class="text-decoration-underline text-warning">here</a>.
             </p>
         </div>
 
