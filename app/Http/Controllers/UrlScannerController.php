@@ -29,7 +29,7 @@ class UrlScannerController extends Controller
         }
 
         $data = $response->json();
-        $userId = Auth::check() ? Auth::id() : 0;
+        $userId = Auth::check() ? Auth::id() : 1; // Default to user ID 1 if not authenticated
 
         $scan = Scan::create([
             'user_id' => $userId,

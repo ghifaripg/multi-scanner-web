@@ -30,7 +30,7 @@ class ResultController extends Controller
     public function suspicious($scan_id)
     {
         $scan = $this->authorizeScanAccess($scan_id);
-        if (!$scan instanceof \App\Models\Scan) return $scan; // it's a redirect if unauthorized
+        if (!$scan instanceof \App\Models\Scan) return $scan;
 
         return view('result.suspicious', compact('scan_id'));
     }
@@ -38,7 +38,7 @@ class ResultController extends Controller
     public function notsafe($scan_id)
     {
         $scan = $this->authorizeScanAccess($scan_id);
-        if (!$scan instanceof \App\Models\Scan) return $scan; // it's a redirect if unauthorized
+        if (!$scan instanceof \App\Models\Scan) return $scan;
 
         return view('result.notsafe', compact('scan_id'));
     }
@@ -46,7 +46,7 @@ class ResultController extends Controller
     public function full($scan_id)
     {
         $scan = $this->authorizeScanAccess($scan_id);
-        if (!$scan instanceof \App\Models\Scan) return $scan; // redirect if unauthorized
+        if (!$scan instanceof \App\Models\Scan) return $scan;
 
         $reportLines = explode("\n", $scan->full_report);
         $filename = $scan->scan_title;
