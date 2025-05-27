@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Scan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class FileScannerController extends Controller
 {
@@ -17,17 +19,16 @@ class FileScannerController extends Controller
     public function scan(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:exe,pdf|max:51200', // 50MB max
+            'file' => 'required|file|mimes:exe,pdf|max:51200',
         ]);
 
         try {
             $file = $request->file('file');
-            $userId = Auth::check() ? Auth::id() : 0;
+            $userId = Auth::check() ? Auth::id() : 1;
 
             // Send file to FastAPI
-            $userId = Auth::check() ? Auth::id() : 0;
             $client = new \GuzzleHttp\Client();
-            $response = $client->request('POST', 'http://127.0.0.1:8000/predict/file', [
+            $response = $client->request('POST', 'http://127.0.0.1:8001/predict/file', [
                 'multipart' => [
                     [
                         'name'     => 'file',
@@ -48,10 +49,14 @@ class FileScannerController extends Controller
                 'full_report' => json_encode($data['features'], JSON_PRETTY_PRINT),
             ]);
 
+            $scanId = $scan->scan_id;
+            Session::put('latest_scan_id', $scanId);
+
+
             return match ($data['result']) {
-                'Safe' => redirect()->route('result.safe', ['scan_id' => $scan->id]),
-                'Suspicious' => redirect()->route('result.suspicious', ['scan_id' => $scan->id]),
-                default => redirect()->route('result.notsafe', ['scan_id' => $scan->id]),
+                'Safe' => redirect()->route('result.safe', ['scan_id' => $scanId]),
+                'Suspicious' => redirect()->route('result.suspicious', ['scan_id' => $scanId]),
+                default => redirect()->route('result.notsafe', ['scan_id' => $scanId]),
             };
         } catch (\Exception $e) {
             Log::error("File scan error: " . $e->getMessage());
