@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/history', [HistoryController::class, 'history'])->name('scan.history');
     Route::get('/result/full/{scan_id}', [HistoryController::class, 'full'])->name('result.full');
 });
+Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 // Scan Result Pages
 // Route::view('/result-safe', 'result.safe')->name('result.safe');
 // Route::view('/result-unsafe', 'result.notsafe')->name('result.notsafe');
