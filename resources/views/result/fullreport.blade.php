@@ -172,6 +172,48 @@
                     {{ implode('', $reportLines) }}
                     </pre>
                 @endif
+            @elseif ($scan->scan_type === 'file' && isset($reportLines))
+                @php
+                    $json = json_decode(implode('', $reportLines), true);
+                @endphp
+
+                @if (is_array($json))
+                    <div class="bg-light rounded p-4">
+                        <h5 class="fw-bold">File Scan Report</h5>
+                        <table class="table table-bordered table-sm mb-4">
+                            <tbody>
+                                <tr>
+                                    <th>Filename</th>
+                                    <td>{{ $json['filename'] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>File Size</th>
+                                    <td>{{ number_format($json['file_size'] ?? 0) }} bytes</td>
+                                </tr>
+                                <tr>
+                                    <th>File Type</th>
+                                    <td>{{ $json['file_type'] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>MD5</th>
+                                    <td style="word-break: break-all;">{{ $json['md5'] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>SHA-1</th>
+                                    <td style="word-break: break-all;">{{ $json['sha1'] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>SHA-256</th>
+                                    <td style="word-break: break-all;">{{ $json['sha256'] ?? '-' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <pre class="bg-light rounded p-4" style="font-family: monospace; white-space: pre-wrap;">
+            {{ implode('', $reportLines) }}
+        </pre>
+                @endif
             @else
                 <p class="text-muted fs-5 mb-5">
                     No report available.

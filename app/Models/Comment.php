@@ -14,7 +14,7 @@ class Comment extends Model
         'created_at',
     ];
 
-    public $timestamps = false; // Since you only use created_at
+    public $timestamps = false;
 
     // Relationships
     public function scan()

@@ -9,6 +9,7 @@ use App\Http\Controllers\EmailScannerController;
 use App\Http\Controllers\UrlScannerController;
 use App\Http\Controllers\PreventController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\CommentController;
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
@@ -32,14 +33,16 @@ Route::post('/comment', [ResultController::class, 'storeComment'])->name('commen
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/history', [HistoryController::class, 'history'])->name('scan.history');
+    Route::get('/result/full/{scan_id}', [HistoryController::class, 'full'])->name('result.full');
 });
+Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 // Scan Result Pages
 // Route::view('/result-safe', 'result.safe')->name('result.safe');
 // Route::view('/result-unsafe', 'result.notsafe')->name('result.notsafe');
 // Route::view('/result-suspicious', 'result.suspicious')->name('result.suspicious');
 // Route::view('/full-report', 'result.fullreport')->name('result.full');
 Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
-
+Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
 // Authentication Pages
 
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
