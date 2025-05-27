@@ -24,7 +24,7 @@ class CommentController extends Controller
         $comment = new Comment();
         $comment->scan_id = $request->scan_id;
         $comment->user_id = Auth::id();
-        $comment->content = $request->comment;
+        $comment->comment = $request->comment;
         $comment->save();
 
         return response()->json(['message' => 'Comment added successfully']);
