@@ -90,29 +90,24 @@
         <section id="scan-lookup">
             <h1 class="fw-bold text-center mb-5" style="color: #F24822;">Scan Lookup</h1>
 
-            <!-- Search Form -->
-            <form class="d-flex justify-content-center mb-4" role="search">
-                <input class="form-control me-2 rounded-pill" type="search" placeholder="Search..." aria-label="Search">
+             <!-- Search Form -->
+            <form id="searchForm" class="d-flex justify-content-center mb-4" role="search">
+                @csrf
+                <input class="form-control me-2 rounded-pill" 
+                    type="search" 
+                    id="searchInput"
+                    name="search" 
+                    placeholder="Search email or URL scans..." 
+                    aria-label="Search">
                 <button class="btn rounded-pill px-4" type="submit"
                     style="background-color: #FF6666; color: white;">Search</button>
             </form>
+            <small class="text-center d-block text-muted mb-3">Showing only Email and URL scan results</small>
 
-            <!-- Scrollable Search Results -->
-            <div class="result-container">
-                <div class="scrollable-list">
-                    @foreach (['John Doe' => 'Email Scan', 'Jonathan Joestar' => 'URL Scan', 'Jotaro Kujo' => 'File Scan'] as $name => $scanType)
-                        <div class="result-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle" alt="User Icon"
-                                    width="50">
-                                <div class="d-flex flex-column">
-                                    <span class="fw-bold">{{ $name }}</span>
-                                    <span class="text-muted">{{ $scanType }}</span>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-link text-decoration-none">View</a>
-                        </div>
-                    @endforeach
+            <!-- Results Container -->
+            <div id="resultsContainer" class="result-container" style="display: none;">
+                <div class="scrollable-list" id="resultsList">
+                    <!-- Results will be inserted here by JavaScript -->
                 </div>
             </div>
         </section>
@@ -171,3 +166,84 @@
 
     </div>
 @endsection
+
+<style>
+    .result-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.scrollable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Handle form submission
+    $('#searchForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        performSearch();
+    });
+
+    function performSearch() {
+        const searchTerm = $('#searchInput').val().trim();
+        
+        if (searchTerm.length === 0) {
+            $('#resultsContainer').hide();
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route("scan.ajaxSearch") }}',
+            type: 'GET',
+            data: { search: searchTerm },
+            success: function(response) {
+                const resultsList = $('#resultsList');
+                resultsList.empty(); // Clear previous results
+
+                if (response.scans.length > 0) {
+                    response.scans.forEach(scan => {
+                        resultsList.append(`
+                            <div class="result-item">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle" alt="User Icon" width="50">
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold">${scan.scan_title}</span>
+                                        <span class="text-muted">${scan.scan_type}</span>
+                                    </div>
+                                </div>
+                                <a href="/result/full-public/${scan.scan_id}" class="btn btn-link text-decoration-none">View</a>
+                            </div>
+                        `);
+                    });
+                    $('#resultsContainer').show();
+                } else {
+                    resultsList.append(`
+                        <div class="text-center text-muted py-3">
+                            No scan results found for "${searchTerm}"
+                        </div>
+                    `);
+                    $('#resultsContainer').show();
+                }
+            },
+            error: function(xhr) {
+                console.error('Search error:', xhr.responseText);
+            }
+        });
+    }
+});
+</script>

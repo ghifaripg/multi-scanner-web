@@ -10,9 +10,13 @@ use App\Http\Controllers\UrlScannerController;
 use App\Http\Controllers\PreventController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
+
 
 // Dashboard
 Route::view('/', 'dashboard.index')->name('dashboard');
+Route::get('/scan/ajax-search', [HomeController::class, 'ajaxSearch'])->name('scan.ajaxSearch');
+Route::get('/result/full-public/{scan_id}', [HomeController::class, 'full'])->name('result.full.public');
 
 // Scanner Pages
 Route::get('/url-scanner', [UrlScannerController::class, 'showScanner'])->name('scanner.url');
