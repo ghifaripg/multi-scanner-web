@@ -16,14 +16,12 @@ class CommentController extends Controller
             'comment' => 'required|string|max:1000'
         ]);
 
-        // Verify the scan belongs to the user
-        $scan = Scan::where('scan_id', $request->scan_id)
-                   ->where('user_id', Auth::id())
-                   ->firstOrFail();
+        // Use ID 1 for guest (you can also use null if allowed)
+        $userId = Auth::check() ? Auth::id() : 1;
 
         $comment = new Comment();
         $comment->scan_id = $request->scan_id;
-        $comment->user_id = Auth::id();
+        $comment->user_id = $userId;
         $comment->comment = $request->comment;
         $comment->save();
 
