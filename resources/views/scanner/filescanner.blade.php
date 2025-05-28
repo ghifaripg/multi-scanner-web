@@ -34,7 +34,7 @@
             </div>
 
             {{-- Helper Text --}}
-            <small class="text-muted mt-2">Only .exe & pdf files</small>
+            <small class="text-muted mt-2">Only .exe files</small>
 
             {{-- Submit Button --}}
             <button type="submit" class="btn btn-scan btn-disabled mt-4" id="scanBtn" disabled>
@@ -104,7 +104,7 @@
         fileForm.addEventListener('submit', function(e) {
             if (!fileInput.files.length) {
                 e.preventDefault();
-                alert('Please select a .exe or .pdf file first');
+                alert('Please select a .exe file first');
             }
         });
 
@@ -114,10 +114,10 @@
         }
 
         function validateFile(file) {
-            const allowed = ['.exe', '.pdf'];
+            const allowed = ['.exe'];
             const isValid = allowed.some(ext => file.name.endsWith(ext));
             if (!isValid) {
-                alert('Only .exe and .pdf files are allowed');
+                alert('Only .exe files is allowed');
                 return false;
             }
             if (file.size > 10 * 1024 * 1024) {
