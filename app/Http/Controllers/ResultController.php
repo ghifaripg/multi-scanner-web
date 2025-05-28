@@ -25,12 +25,25 @@ class ResultController extends Controller
         return Scan::findOrFail($scan_id);
     }
 
-    public function safe($scan_id)
+   public function safe($scan_id)
     {
         $scan = $this->authorizeScanAccess($scan_id);
         if (!$scan instanceof \App\Models\Scan) return $scan;
 
-        return view('result.safe', compact('scan_id'));
+        // Get latest 18 comments from scans with the same type and title
+        $relatedComments = Comment::with(['user', 'scan'])
+            ->whereHas('scan', function ($query) use ($scan) {
+                $query->where('scan_type', $scan->scan_type)
+                    ->where('scan_title', $scan->scan_title);
+            })
+            ->latest()
+            ->take(18)
+            ->get();
+
+        return view('result.safe', [
+            'scan_id' => $scan_id,
+            'relatedComments' => $relatedComments
+        ]);
     }
 
     public function suspicious($scan_id)
