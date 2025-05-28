@@ -43,112 +43,31 @@
                 </p>
             </div>
 
-            {{-- Carousel --}}
-            <div id="glimpseCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @php
-                        $glimpseResults = [
-                            [
-                                'type' => 'URL Scan',
-                                'input' => 'http://6hpoekbr.stirlingbodyshop.co.uk/?id=zuzak.sk',
-                                'result' => 'Suspicious',
-                                'comment' => 'Dont click this link, it may lead to a phishing site.',
-                            ],
-                            [
-                                'type' => 'Email Scan',
-                                'input' => 'www.payp41.com',
-                                'sender' => 'PayPal Security Team',
-                                'result' => 'Not Safe',
-                                'comment' => 'Try to click the link from this email, and now my account is gone',
-                            ],
-                            ['type' => 'File Scan', 'input' => 'invoice_update_2024.exe', 'result' => 'Safe', 'comment' => 'This file is legit.'],
-                            [
-                                'type' => 'URL Scan',
-                                'input' => 'https://secure-login-dropbocx.com/reset',
-                                'result' => 'Not Safe',
-                                'comment' => 'After scan I try to click it and yap it scam',
-                            ],
-                            [
-                                'type' => 'Email Scan',
-                                'input' => 'googledev-noreply@google.com',
-                                'sender' => 'Google Developer Program',
-                                'result' => 'Safe',
-                                'comment' => 'This email is verified and safe.',
-                            ],
-                            ['type' => 'File Scan', 'input' => 'installer_patch.exe', 'result' => 'Suspicious', 'comment' => 'It safe 100%'],
-                            ['type' => 'URL Scan', 'input' => 'https://google.com/security', 'result' => 'Safe', 'comment' => 'It safe to visit this URL.'],
-
-                            [
-                                'type' => 'Email Scan',
-                                'input' => 'www.amazon.com',
-                                'sender' => 'amaz0n',
-                                'result' => 'Not Safe',
-                                'comment' => 'Well, do not give any information to this email ',
-                            ],
-                            ['type' => 'File Scan', 'input' => 'game_crack.exe', 'result' => 'Not Safe', 'comment' => 'This file is known to contain malware.'],
-                            [
-                                'type' => 'URL Scan',
-                                'input' => 'http://freegiftcard-checkout.net',
-                                'result' => 'Not Safe',
-                                'comment' => 'It is not free, it cost me my account....',
-                            ],
-                            [
-                                'type' => 'Email Scan',
-                                'input' => 'www.netflix.com',
-                                'sender' => 'netflix',
-                                'result' => 'safe',
-                                'comment' => 'This email domain is verified and safe.',
-                            ],
-                            ['type' => 'File Scan', 'input' => 'report_final_2023.exe', 'result' => 'Safe', 'comment' => 'This file is safe and verified.'],
-                        ];
-                        $cardsPerSlide = 6;
-                        $totalSlides = ceil(count($glimpseResults) / $cardsPerSlide);
-                    @endphp
-                    @for ($i = 0; $i < $totalSlides; $i++)
-                        <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
-                            <div class="row g-4 justify-content-center">
-                                @for ($j = 0; $j < $cardsPerSlide; $j++)
-                                    @php
-                                        $index = $i * $cardsPerSlide + $j;
-                                        if (!isset($glimpseResults[$index])) {
-                                            continue;
-                                        }
-                                        $scan = $glimpseResults[$index];
-                                    @endphp
-                                    <div class="col-md-4">
-                                        <div
-                                            class="card shadow-sm p-3 glimpse-card h-100 d-flex flex-column justify-content-between">
-                                            <div class="card-body">
-                                                <p class="card-text mb-0">{{ $scan['comment']}}</p>
-                                            </div>
-                                            <hr class="my-2" style="border-top: 1px solid #646464;">
-                                            <div class="card-footer d-flex align-items-center bg-white border-0 pt-0">
-                                                <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle me-2"
-                                                    alt="User Icon" width="40">
-                                                <div>
-                                                    <p class="fw-bold mb-1">Anonymous</p>
-                                                    @if ($scan['type'] === 'Email Scan' && isset($scan['sender']))
-                                                        <p class="text-muted mb-0">{{ $scan['sender'] }}</p>
-                                                    @endif
-                                                    <p class="text-muted mb-0">{{ $scan['input'] }} • {{ $scan['result'] }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endfor
+            {{-- Dynamic Grid of 6 Cards --}}
+            <div class="row g-4 justify-content-center">
+                @foreach ($glimpseResults as $scan)
+                    <div class="col-md-4">
+                        <div class="card shadow-sm p-3 glimpse-card h-100 d-flex flex-column justify-content-between">
+                            <div class="card-body">
+                                <p class="card-text mb-0">{{ $scan->comments->first()->comment ?? 'No comment provided.' }}</p>
+                            </div>
+                            <hr class="my-2" style="border-top: 1px solid #646464;">
+                            <div class="card-footer d-flex align-items-center bg-white border-0 pt-0">
+                                <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle me-2"
+                                    alt="User Icon" width="40">
+                                <div>
+                                    <p class="fw-bold mb-1">Anonymous</p>
+                                    @if ($scan->scan_type === 'email' && !empty($scan->sender))
+                                        <p class="text-muted mb-0">{{ $scan->sender }}</p>
+                                    @endif
+                                    <p class="text-muted mb-0">
+                                        {{ $scan->scan_title }} • {{ ucfirst($scan->scan_result) }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    @endfor
-                </div>
-
-                {{-- Carousel Controls --}}
-                <button class="carousel-control-prev" type="button" data-bs-target="#glimpseCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#glimpseCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+                    </div>
+                @endforeach
             </div>
         </section>
 

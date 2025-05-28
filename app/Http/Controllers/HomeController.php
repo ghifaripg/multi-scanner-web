@@ -7,6 +7,40 @@ use App\Models\Scan;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        $types = ['url', 'email', 'file'];
+        $glimpseResults = collect();
+
+        foreach ($types as $type) {
+            $scans = Scan::where('scan_type', $type)
+                ->whereHas('comments') // Only scans that have at least 1 comment
+                ->with(['comments' => function($query) {
+                    $query->latest()->limit(1); // Load only the latest comment
+                }])
+                ->inRandomOrder()
+                ->limit(2)
+                ->get();
+
+            $glimpseResults = $glimpseResults->merge($scans);
+        }
+
+        if ($glimpseResults->count() < 6) {
+            $additionalScans = Scan::whereNotIn('scan_id', $glimpseResults->pluck('scan_id'))
+                ->whereHas('comments')
+                ->with(['comments' => function($query) {
+                    $query->latest()->limit(1);
+                }])
+                ->inRandomOrder()
+                ->limit(6 - $glimpseResults->count())
+                ->get();
+
+            $glimpseResults = $glimpseResults->merge($additionalScans);
+        }
+
+        return view('dashboard.index', compact('glimpseResults'));
+    }
+
     public function ajaxSearch(Request $request)
     {
         $searchTerm = $request->input('search');
