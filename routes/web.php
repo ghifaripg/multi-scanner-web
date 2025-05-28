@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 Route::get('/comments/check', [HistoryController::class, 'check'])->middleware('auth');
+Route::put('/comments/{comment}', [HistoryController::class, 'update'])->middleware('auth');
 Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
 Route::post('/comments', [CommentController::class, 'store']);
 

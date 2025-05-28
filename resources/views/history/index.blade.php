@@ -75,10 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (commentText) {
-                    // Send the comment to your backend
+                    const method = existingComment ? 'PUT' : 'POST';
+                    const url = existingComment ? `/comments/${existingComment.id}` : '/comments';
+                    
                     try {
-                        const response = await fetch('/comments', {
-                            method: 'POST',
+                        const response = await fetch(url, {
+                            method: method,
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content

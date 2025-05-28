@@ -48,23 +48,32 @@ class HistoryController extends Controller
     return view('result.fullreport', compact('reportLines', 'filename', 'scan'));
     }
 
-     public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'scan_id' => 'required|exists:scans,scan_id',
             'comment' => 'required|string|max:1000'
         ]);
 
+        // Check if comment already exists
+        $existingComment = Comment::where('scan_id', $request->scan_id)
+                                ->where('user_id', Auth::id())
+                                ->first();
+
+        if ($existingComment) {
+            return response()->json(['message' => 'Comment already exists'], 422);
+        }
+
         // Verify the scan belongs to the user
         $scan = Scan::where('scan_id', $request->scan_id)
-                   ->where('user_id', Auth::id())
-                   ->firstOrFail();
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
 
-        $comment = new Comment();
-        $comment->scan_id = $request->scan_id;
-        $comment->user_id = Auth::id();
-        $comment->comment = $request->comment;
-        $comment->save();
+        $comment = Comment::create([
+            'scan_id' => $request->scan_id,
+            'user_id' => Auth::id(),
+            'comment' => $request->comment
+        ]);
 
         return response()->json(['message' => 'Comment added successfully']);
     }
@@ -80,5 +89,23 @@ class HistoryController extends Controller
                         ->first();
 
         return response()->json($comment);
+    }
+
+    public function update(Request $request, Comment $comment)
+    {
+        // Verify the comment belongs to the user
+        if ($comment->user_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $request->validate([
+            'comment' => 'required|string|max:1000'
+        ]);
+
+        $comment->update([
+            'comment' => $request->comment
+        ]);
+
+        return response()->json(['message' => 'Comment updated successfully']);
     }
 }
