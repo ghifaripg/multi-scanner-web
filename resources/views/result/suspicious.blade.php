@@ -12,7 +12,7 @@
             <p class="text-dark" style="max-width: 700px; font-size: 1.25rem;">
                 The input contains elements that may be potentially harmful. Caution is advised and further review is
                 recommended. See how to prevent
-                <a href="{{ route('prevent.urlattacks') }}" target="_blank"
+                <a href="{{ route('prevent.phishing') }}" target="_blank"
                     class="text-decoration-underline text-warning">here</a>.
             </p>
         </div>

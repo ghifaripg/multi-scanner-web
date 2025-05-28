@@ -8,18 +8,11 @@
                 General Tips for Staying Safe Online
             </h1>
 
-            <!-- Video Switcher -->
-            <div class="mb-4 d-flex gap-3">
-                <button class="btn btn-outline px-3 py-2" style="font-size: 0.9rem;" onclick="switchVideo('clicked')">
-                    🚨 Already Clicked?
-                </button>
-            </div>
-
             <!-- Video Container -->
             <div class="d-flex justify-content-center mb-5">
                 <div class="ratio ratio-16x9" style="max-width: 800px; width: 100%;" id="videoContainer">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/XsOWczwRVuc?si=zUVADJZGHUONnWRA"
-                        title="Prevent Phishing" frameborder="0"
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/fgd-osFId00?si=VgEZoS2mtErU8NC4"
+                        title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
@@ -64,8 +57,25 @@
             </div>
 
 
-
-
+            <!-- Explore More Tips Section -->
+            <div class="text-center mb-5 mt-5">
+                <h5 class="fw-bold mb-3" style="color: #1a364c; font-family: 'Manrope', sans-serif;">Want More Safety Tips?
+                </h5>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <a href="{{ route('prevent.clicked') }}"
+                        class="btn btn-outline-secondary rounded-pill px-4 py-2">After Clicking a Suspicious Link</a>
+                    <a href="{{ route('prevent.phishing') }}"
+                        class="btn btn-outline-secondary rounded-pill px-4 py-2">Phishing Prevention</a>
+                    <a href="{{ route('prevent.cyberhygiene') }}"
+                        class="btn btn-outline-secondary rounded-pill px-4 py-2">Cyber Hygiene</a>
+                    <a href="{{ route('prevent.fakeemails') }}"
+                        class="btn btn-outline-secondary rounded-pill px-4 py-2">Recognize Fake Emails</a>
+                    <a href="{{ route('prevent.exerisks') }}"
+                        class="btn btn-outline-secondary rounded-pill px-4 py-2">Executable File Risks</a>
+                    <a href="{{ route('prevent.urlattacks') }}" class="btn btn-outline-secondary rounded-pill px-4 py-2">URL
+                        Attack Patterns</a>
+                </div>
+            </div>
 
             <!-- Back Button -->
             <div class="mt-4">
@@ -76,32 +86,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function switchVideo(type) {
-            const container = document.getElementById('videoContainer');
-            const videos = {
-                prevent: `
-                                        <iframe width="560" height="315"
-                                            src="https://www.youtube.com/embed/XsOWczwRVuc?si=zUVADJZGHUONnWRA"
-                                            title="Prevent Phishing"
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            referrerpolicy="strict-origin-when-cross-origin"
-                                            allowfullscreen></iframe>
-                                    `,
-                clicked: `
-                                        <iframe width="560" height="315"
-                                            src="https://www.youtube.com/embed/B06nvFCyBFs?si=sMr9OI10UOoxbTrO"
-                                            title="Already Clicked Phishing Link"
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            referrerpolicy="strict-origin-when-cross-origin"
-                                            allowfullscreen></iframe>
-                                    `
-            };
-
-            container.innerHTML = videos[type];
-        }
-    </script>
 @endsection

@@ -12,7 +12,7 @@
             <p class="text-dark" style="max-width: 700px; font-size: 1.25rem;">
                 Threats or malicious activity were detected in the scanned input. It is strongly advised not to proceed or
                 open the file. See how to prevent
-                <a href="{{ route('prevent.index') }}" class="text-decoration-underline text-warning" onclick="event.preventDefault(); window.location.href='{{ route('prevent.index') }}';">
+                <a href="{{ route('prevent.phishing') }}" class="text-decoration-underline text-warning" onclick="event.preventDefault(); window.location.href='{{ route('prevent.index') }}';">
                     here
                 </a>.
             </p>
