@@ -10,7 +10,7 @@
             <h1 class="fw-bold text-success" style="font-size: 3rem;">Safe!</h1>
             <p class="text-dark" style="max-width: 700px; font-size: 1.25rem;">
                 No threats or suspicious activities were detected. The scanned input appears to be safe and does not show
-                any signs of harmful content. See how to prevent <a href="{{ route('prevent.index') }}" target="_blank"
+                any signs of harmful content. See how to prevent <a href="{{ route('prevent.exerisks') }}" target="_blank"
                     class="text-decoration-underline text-warning">here</a>.
             </p>
         </div>

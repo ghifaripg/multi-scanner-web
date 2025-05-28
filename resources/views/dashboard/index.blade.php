@@ -93,11 +93,11 @@
              <!-- Search Form -->
             <form id="searchForm" class="d-flex justify-content-center mb-4" role="search">
                 @csrf
-                <input class="form-control me-2 rounded-pill" 
-                    type="search" 
+                <input class="form-control me-2 rounded-pill"
+                    type="search"
                     id="searchInput"
-                    name="search" 
-                    placeholder="Search email or URL scans..." 
+                    name="search"
+                    placeholder="Search email or URL scans..."
                     aria-label="Search">
                 <button class="btn rounded-pill px-4" type="submit"
                     style="background-color: #FF6666; color: white;">Search</button>
@@ -201,7 +201,7 @@ $(document).ready(function() {
 
     function performSearch() {
         const searchTerm = $('#searchInput').val().trim();
-        
+
         if (searchTerm.length === 0) {
             $('#resultsContainer').hide();
             return;
@@ -223,6 +223,7 @@ $(document).ready(function() {
                                     <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle" alt="User Icon" width="50">
                                     <div class="d-flex flex-column">
                                         <span class="fw-bold">${scan.scan_title}</span>
+                                        <span class="text-muted">${scan.scan_result}</span>
                                         <span class="text-muted">${scan.scan_type}</span>
                                     </div>
                                 </div>

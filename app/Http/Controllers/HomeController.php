@@ -34,7 +34,7 @@ class HomeController extends Controller
     public function full($scan_id)
     {
     $scan = Scan::findOrFail($scan_id);
-    
+
     // Basic authorization - ensure the scan belongs to the authenticated user
     // if ($scan->user_id !== auth()->id()) {
     //     return redirect()->route('scan.history')
@@ -43,7 +43,8 @@ class HomeController extends Controller
 
     $reportLines = explode("\n", $scan->full_report);
     $filename = $scan->scan_title;
+    $result = $scan->scan_result;
 
-    return view('result.fullreport', compact('reportLines', 'filename', 'scan'));
+    return view('result.fullreport', compact('reportLines', 'filename', 'scan', 'result'));
     }
 }

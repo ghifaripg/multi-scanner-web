@@ -6,7 +6,7 @@
         {{-- Konten utama --}}
         <div class="text-start" style="max-width: 100%;">
             <h1 class="fw-bold mb-4" style="color: #F24822; font-size: 2.25rem;">
-                Scan Report: {{ $filename ?? 'Unknown File' }}
+                Scan Report: {{ $filename ?? 'Unknown File' }} - {{ $result ?? 'Unknown Result' }}
             </h1>
 
             @if ($scan->scan_type === 'email' && isset($reportLines))
