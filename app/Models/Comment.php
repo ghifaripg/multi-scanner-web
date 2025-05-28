@@ -19,7 +19,7 @@ class Comment extends Model
     // Relationships
     public function scan()
     {
-        return $this->belongsTo(Scan::class);
+        return $this->belongsTo(Scan::class, 'scan_id', 'scan_id');
     }
 
     public function user()
