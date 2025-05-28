@@ -54,7 +54,7 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 // Route::get('/prevent', [PreventController::class, 'index'])->name('prevent.index');
 // Preventive education pages
-Route::view('/prevent/preventattack', 'result.prevent.preventattack')->name('prevent.preventattack');
+// Route::view('/prevent/preventattack', 'result.prevent.preventattack')->name('prevent.preventattack');
 Route::view('/prevent/phishing', 'result.prevent.phishing')->name('prevent.phishing');
 Route::view('/prevent/already-clicked', 'result.prevent.alreadyclicked')->name('prevent.clicked');
 Route::view('/prevent/cyber-hygiene', 'result.prevent.cyberhygiene')->name('prevent.cyberhygiene');
