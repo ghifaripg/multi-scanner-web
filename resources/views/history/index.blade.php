@@ -43,50 +43,68 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.comment-btn').forEach(button => {
         button.addEventListener('click', async function() {
             const scanId = this.getAttribute('data-scan-id');
+            
+            // First try to fetch existing comment
+            try {
+                const fetchResponse = await fetch(`/comments/check?scan_id=${scanId}`, {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+                
+                const existingComment = await fetchResponse.json();
+                
+                // Show the SweetAlert with existing comment if available
+                const { value: commentText } = await Swal.fire({
+                    title: existingComment ? 'Edit Your Comment' : 'Add Comment',
+                    input: 'textarea',
+                    inputLabel: 'Your Comment',
+                    inputPlaceholder: 'Type your comment here...',
+                    inputValue: existingComment?.comment || '', // Pre-fill if exists
+                    inputAttributes: {
+                        'aria-label': 'Type your comment here'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: existingComment ? 'Update' : 'Submit',
+                    cancelButtonText: 'Cancel',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to write something!';
+                        }
+                    }
+                });
 
-            const { value: commentText } = await Swal.fire({
-                title: 'Add Comment',
-                input: 'textarea',
-                inputLabel: 'Your Comment',
-                inputPlaceholder: 'Type your comment here...',
-                inputAttributes: {
-                    'aria-label': 'Type your comment here'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Submit',
-                cancelButtonText: 'Cancel',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'You need to write something!';
+                if (commentText) {
+                    // Send the comment to your backend
+                    try {
+                        const response = await fetch('/comments', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: JSON.stringify({
+                                scan_id: scanId,
+                                comment: commentText
+                            })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            Swal.fire('Success!', existingComment ? 'Comment updated' : 'Comment added successfully', 'success');
+                        } else {
+                            Swal.fire('Error!', result.message || 'Failed to save comment', 'error');
+                        }
+                    } catch (error) {
+                        Swal.fire('Error!', 'Something went wrong', 'error');
                     }
                 }
-            });
-
-            if (commentText) {
-                // Send the comment to your backend
-                try {
-                    const response = await fetch('/comments', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        },
-                        body: JSON.stringify({
-                            scan_id: scanId,
-                            comment: commentText
-                        })
-                    });
-
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        Swal.fire('Success!', 'Comment added successfully', 'success');
-                    } else {
-                        Swal.fire('Error!', result.message || 'Failed to add comment', 'error');
-                    }
-                } catch (error) {
-                    Swal.fire('Error!', 'Something went wrong', 'error');
-                }
+                
+            } catch (error) {
+                console.error('Error fetching existing comment:', error);
+                // Fallback to regular comment flow if fetch fails
+                // ... (use your original comment submission code)
             }
         });
     });

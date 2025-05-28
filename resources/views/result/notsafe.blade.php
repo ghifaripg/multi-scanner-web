@@ -18,28 +18,59 @@
             </p>
         </div>
 
-         {{-- Glimpse Before Scan --}}
-        <section id="glimpse" class="scroll-target">
+<section id="glimpse" class="scroll-target">
             {{-- Carousel --}}
             <div id="glimpseCarousel" class="carousel slide" data-bs-ride="carousel">
+                {{-- Show indicators only if more than 6 comments --}}
+                @if($relatedComments->count() > 6)
+                    <div class="carousel-indicators">
+                        @for ($i = 0; $i < ceil($relatedComments->count() / 6); $i++)
+                            <button type="button" data-bs-target="#glimpseCarousel"
+                                    data-bs-slide-to="{{ $i }}"
+                                    class="{{ $i === 0 ? 'active' : '' }}"
+                                    aria-label="Slide {{ $i + 1 }}"></button>
+                        @endfor
+                    </div>
+                @endif
+
                 <div class="carousel-inner">
-                    @for ($i = 0; $i < 3; $i++)
-                        <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                    @php
+                        $chunks = $relatedComments->chunk(6);
+                    @endphp
+
+                    @foreach ($chunks as $index => $chunk)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="row g-4">
-                                @for ($j = 1; $j <= 6; $j++)
+                                {{-- Real Comments --}}
+                                @foreach ($chunk as $comment)
                                     <div class="col-md-4">
-                                        <div class="card shadow-sm p-3">
+                                        <div class="card shadow-sm p-3 h-100">
                                             <div class="card-body">
-                                                <p class="card-text">I love how fast and simple it is. Just dropped a URL
-                                                    and it gave me a clear risk
-                                                    summary in seconds. Must-have for remote teams.</p>
+                                                <p class="card-text">{{ $comment->comment }}</p>
                                             </div>
                                             <div class="card-footer d-flex align-items-center">
-                                                <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle me-2"
-                                                    alt="User Icon" width="40">
+                                                <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle me-2" alt="User Icon" width="40">
                                                 <div>
-                                                    <p class="fw-bold mb-1">John Doe</p>
-                                                    <p class="text-muted mb-0">Scan Name • URL Scan</p>
+                                                    <p class="fw-bold mb-1">{{ $comment->user->name ?? 'Anonymous' }}</p>
+                                                    <p class="text-muted mb-0">{{ $comment->scan->scan_title ?? 'Untitled' }} • {{ ucfirst($comment->scan->scan_result ?? '-') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                {{-- Placeholder Cards (hidden but space-reserving) --}}
+                                @for ($i = $chunk->count(); $i < 6; $i++)
+                                    <div class="col-md-4">
+                                        <div class="card shadow-sm p-3 invisible h-100">
+                                            <div class="card-body">
+                                                <p class="card-text">Placeholder text</p>
+                                            </div>
+                                            <div class="card-footer d-flex align-items-center">
+                                                <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle me-2" alt="User Icon" width="40">
+                                                <div>
+                                                    <p class="fw-bold mb-1">Placeholder</p>
+                                                    <p class="text-muted mb-0">Placeholder • Placeholder</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -47,18 +78,21 @@
                                 @endfor
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
 
-                {{-- Carousel Controls --}}
-                <button class="carousel-control-prev" type="button" data-bs-target="#glimpseCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#glimpseCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+                {{-- Only show controls if more than 6 comments --}}
+                @if($relatedComments->count() > 6)
+                    <button class="carousel-control-prev" type="button" data-bs-target="#glimpseCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#glimpseCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                @endif
             </div>
         </section>
+
 
         {{-- Tombol --}}
         <a href="/" class="btn-back position-absolute btn-rounded" style="bottom: 0; left: 0; margin: 24px;">

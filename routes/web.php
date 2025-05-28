@@ -33,7 +33,6 @@ Route::get('/result/safe/{scan_id}', [ResultController::class, 'safe'])->name('r
 Route::get('/result/suspicious/{scan_id}', [ResultController::class, 'suspicious'])->name('result.suspicious');
 Route::get('/result/notsafe/{scan_id}', [ResultController::class, 'notsafe'])->name('result.notsafe');
 Route::get('/result/full/{scan_id}', [ResultController::class, 'full'])->name('result.full');
-Route::post('/comment', [ResultController::class, 'storeComment'])->name('comment.store');
 
 // History and Comments Pages
 Route::middleware(['auth'])->group(function () {
@@ -41,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/report/full/{scan_id}', [HistoryController::class, 'full'])->name('report.full');
 });
 Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
+Route::get('/comments/check', [HistoryController::class, 'check'])->middleware('auth');
 Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
 Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
 
