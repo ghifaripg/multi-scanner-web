@@ -68,4 +68,17 @@ class HistoryController extends Controller
 
         return response()->json(['message' => 'Comment added successfully']);
     }
+
+    public function check(Request $request)
+    {
+        $request->validate([
+            'scan_id' => 'required|exists:scans,scan_id'
+        ]);
+
+        $comment = Comment::where('scan_id', $request->scan_id)
+                        ->where('user_id', Auth::id())
+                        ->first();
+
+        return response()->json($comment);
+    }
 }

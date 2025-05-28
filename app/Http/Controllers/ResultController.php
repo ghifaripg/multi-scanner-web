@@ -51,7 +51,20 @@ class ResultController extends Controller
         $scan = $this->authorizeScanAccess($scan_id);
         if (!$scan instanceof \App\Models\Scan) return $scan;
 
-        return view('result.suspicious', compact('scan_id'));
+        // Get latest 18 comments from scans with the same type and title
+        $relatedComments = Comment::with(['user', 'scan'])
+            ->whereHas('scan', function ($query) use ($scan) {
+                $query->where('scan_type', $scan->scan_type)
+                    ->where('scan_title', $scan->scan_title);
+            })
+            ->latest()
+            ->take(18)
+            ->get();
+
+        return view('result.suspicious', [
+            'scan_id' => $scan_id,
+            'relatedComments' => $relatedComments
+        ]);
     }
 
     public function notsafe($scan_id)
@@ -59,7 +72,20 @@ class ResultController extends Controller
         $scan = $this->authorizeScanAccess($scan_id);
         if (!$scan instanceof \App\Models\Scan) return $scan;
 
-        return view('result.notsafe', compact('scan_id'));
+        // Get latest 18 comments from scans with the same type and title
+        $relatedComments = Comment::with(['user', 'scan'])
+            ->whereHas('scan', function ($query) use ($scan) {
+                $query->where('scan_type', $scan->scan_type)
+                    ->where('scan_title', $scan->scan_title);
+            })
+            ->latest()
+            ->take(18)
+            ->get();
+
+        return view('result.notsafe', [
+            'scan_id' => $scan_id,
+            'relatedComments' => $relatedComments
+        ]);
     }
 
     public function full($scan_id)
