@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 Route::get('/comments/check', [HistoryController::class, 'check'])->middleware('auth');
 Route::get('/result/{status}', [ResultController::class, 'show'])->name('result.show');
-Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
+Route::post('/comments', [CommentController::class, 'store'])->
 
 // Authentication Pages
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
