@@ -13,16 +13,29 @@ class HomeController extends Controller
         $scans = collect();
 
         if ($searchTerm) {
-            $scans = Scan::query()
+            $query = Scan::query()
                 ->whereIn('scan_type', ['email', 'url'])
                 ->where(function($query) use ($searchTerm) {
                     $query->where('scan_title', 'like', '%' . $searchTerm . '%')
                         ->orWhere('scan_type', 'like', '%' . $searchTerm . '%');
                 })
                 ->with('user')
-                ->orderBy('created_at', 'desc')
-                ->limit(5)
-                ->get();
+                ->orderBy('created_at', 'desc');
+
+            // Get all matching scans
+            $allScans = $query->get();
+
+            // ✅ Filter duplicates ONLY for 'url' type
+            $uniqueScans = $allScans->filter(function ($scan, $key) use ($allScans) {
+                if ($scan->scan_type !== 'url') return true; // keep all non-URL
+                // Check if this is the first occurrence of this scan_title + scan_type
+                return $allScans->where('scan_title', $scan->scan_title)
+                                ->where('scan_type', $scan->scan_type)
+                                ->keys()->first() === $key;
+            });
+
+            // Limit to 5 for display
+            $scans = $uniqueScans->take(5);
         }
 
         return response()->json([

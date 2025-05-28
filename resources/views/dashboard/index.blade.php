@@ -273,6 +273,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>"']/g, function (match) {
+                const escapeMap = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                };
+                return escapeMap[match];
+            });
+        }
+
         // Handle form submission
         $('#searchForm').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
@@ -304,7 +318,7 @@
                                 <div class="d-flex align-items-center gap-3">
                                     <img src="{{ asset('images/User-Icon.svg') }}" class="rounded-circle" alt="User Icon" width="50">
                                     <div class="d-flex flex-column">
-                                        <span class="fw-bold">${scan.scan_title}</span>
+                                        <span class="fw-bold">${escapeHTML(scan.scan_title)}</span>
                                         <span class="text-muted">${scan.scan_result}</span>
                                         <span class="text-muted">${scan.scan_type}</span>
                                     </div>
