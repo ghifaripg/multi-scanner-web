@@ -19,7 +19,7 @@
                                 <i class="bi bi-clock"></i> {{ $scan_id->created_at->format('Y-m-d') }}
                             </small>
                             <div class="d-flex gap-2">
-                                <a href="{{ route('result.full', ['scan_id' => $scan_id]) }}" class="btn btn-outline-secondary btn-sm rounded-5 px-3"
+                                <a href="{{ route('report.full', ['scan_id' => $scan_id]) }}" class="btn btn-outline-secondary btn-sm rounded-5 px-3"
                                     style="color: #F24822">Full Report</a>
                                 <button class="btn btn-outline-secondary btn-sm rounded-5 px-3 comment-btn"  data-scan-id="{{ $scan_id->scan_id }}">Comment</button>
                             </div>

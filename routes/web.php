@@ -37,7 +37,7 @@ Route::post('/comment', [ResultController::class, 'storeComment'])->name('commen
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/history', [HistoryController::class, 'history'])->name('scan.history');
-    Route::get('/result/full/{scan_id}', [HistoryController::class, 'full'])->name('result.full');
+    Route::get('/report/full/{scan_id}', [HistoryController::class, 'full'])->name('report.full');
 });
 Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 // Scan Result Pages
