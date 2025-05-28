@@ -51,24 +51,27 @@ class HistoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'scan_id' => 'required|exists:scans,scan_id',
+            'scan_id' => 'required|exists:scans,id', // Changed from scan_id to id if that's your primary key
             'comment' => 'required|string|max:1000'
         ]);
 
-        // Check if comment already exists
+        // Verify the scan belongs to the user
+        $scan = Scan::where('id', $request->scan_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+        // Check if comment already exists for this user and scan
         $existingComment = Comment::where('scan_id', $request->scan_id)
                                 ->where('user_id', Auth::id())
                                 ->first();
 
         if ($existingComment) {
-            return response()->json(['message' => 'Comment already exists'], 422);
+            // Instead of returning error, update the existing comment
+            $existingComment->update(['comment' => $request->comment]);
+            return response()->json(['message' => 'Comment updated successfully']);
         }
 
-        // Verify the scan belongs to the user
-        $scan = Scan::where('scan_id', $request->scan_id)
-                ->where('user_id', Auth::id())
-                ->firstOrFail();
-
+        // Create new comment if none exists
         $comment = Comment::create([
             'scan_id' => $request->scan_id,
             'user_id' => Auth::id(),

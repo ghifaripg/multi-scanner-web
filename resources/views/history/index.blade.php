@@ -39,31 +39,28 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle comment button clicks
     document.querySelectorAll('.comment-btn').forEach(button => {
         button.addEventListener('click', async function() {
             const scanId = this.getAttribute('data-scan-id');
             
-            // First try to fetch existing comment
             try {
-                const fetchResponse = await fetch(`/comments/check?scan_id=${scanId}`, {
+                // First check if comment exists
+                const checkResponse = await fetch(`/comments/check?scan_id=${scanId}`, {
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
                     }
                 });
                 
-                const existingComment = await fetchResponse.json();
+                const existingComment = await checkResponse.json();
                 
-                // Show the SweetAlert with existing comment if available
+                // Show SweetAlert
                 const { value: commentText } = await Swal.fire({
                     title: existingComment ? 'Edit Your Comment' : 'Add Comment',
                     input: 'textarea',
                     inputLabel: 'Your Comment',
                     inputPlaceholder: 'Type your comment here...',
-                    inputValue: existingComment?.comment || '', // Pre-fill if exists
-                    inputAttributes: {
-                        'aria-label': 'Type your comment here'
-                    },
+                    inputValue: existingComment ? existingComment.comment : '',
                     showCancelButton: true,
                     confirmButtonText: existingComment ? 'Update' : 'Submit',
                     cancelButtonText: 'Cancel',
@@ -75,43 +72,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (commentText) {
-                    const method = existingComment ? 'PUT' : 'POST';
-                    const url = existingComment ? `/comments/${existingComment.id}` : '/comments';
+                    let response;
+                    let url;
+                    let method;
                     
-                    try {
-                        const response = await fetch(url, {
-                            method: method,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                            },
-                            body: JSON.stringify({
-                                scan_id: scanId,
-                                comment: commentText
-                            })
-                        });
+                    if (existingComment) {
+                        // Update existing comment
+                        url = `/comments/${existingComment.id}`;
+                        method = 'PUT';
+                    } else {
+                        // Create new comment
+                        url = '/comments';
+                        method = 'POST';
+                    }
 
-                        const result = await response.json();
+                    response = await fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            scan_id: scanId,
+                            comment: commentText
+                        })
+                    });
 
-                        if (response.ok) {
-                            Swal.fire('Success!', existingComment ? 'Comment updated' : 'Comment added successfully', 'success');
-                        } else {
-                            Swal.fire('Error!', result.message || 'Failed to save comment', 'error');
-                        }
-                    } catch (error) {
-                        Swal.fire('Error!', 'Something went wrong', 'error');
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        Swal.fire('Success!', result.message, 'success');
+                    } else {
+                        Swal.fire('Error!', result.message || 'Failed to save comment', 'error');
                     }
                 }
-                
             } catch (error) {
-                console.error('Error fetching existing comment:', error);
-                // Fallback to regular comment flow if fetch fails
-                // ... (use your original comment submission code)
+                console.error('Error:', error);
+                Swal.fire('Error!', 'Something went wrong', 'error');
             }
         });
     });
 });
-</script>
+    </script>
 
     </div>
 @endsection
