@@ -206,12 +206,66 @@
                                     <th>SHA-256</th>
                                     <td style="word-break: break-all;">{{ $json['sha256'] ?? '-' }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Entropy</th>
+                                    <td>{{ $json['entropy'] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Non-ASCII Ratio</th>
+                                    <td>{{ $json['non_ascii_ratio'] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Sandbox Detection</th>
+                                    <td>{{ $json['sandbox_detected'] ?? 'Not detected' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Embedded URLs/IPs</th>
+                                    <td>
+                                        @if (!empty($json['embedded_urls_ips']))
+                                            <ul class="mb-0">
+                                                @foreach ($json['embedded_urls_ips'] as $url)
+                                                    <li style="word-break: break-all;">{{ $url }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Suspicious API Calls</th>
+                                    <td>
+                                        @if (!empty($json['suspicious_api_calls']))
+                                            <ul class="mb-0">
+                                                @foreach ($json['suspicious_api_calls'] as $api)
+                                                    <li>{{ $api }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Sample Strings</th>
+                                    <td>
+                                        @if (!empty($json['strings_sample']))
+                                            <ul class="mb-0" style="max-height: 200px; overflow-y: auto;">
+                                                @foreach ($json['strings_sample'] as $string)
+                                                    <li style="word-break: break-all;">{{ $string }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 @else
                     <pre class="bg-light rounded p-4" style="font-family: monospace; white-space: pre-wrap;">
-            {{ implode('', $reportLines) }}
+{{ implode('', $reportLines) }}
         </pre>
                 @endif
             @else
