@@ -11,6 +11,8 @@ use App\Http\Controllers\PreventController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DownloadController;
+
 
 
 // Dashboard
@@ -35,11 +37,15 @@ Route::get('/result/suspicious/{scan_id}', [ResultController::class, 'suspicious
 Route::get('/result/notsafe/{scan_id}', [ResultController::class, 'notsafe'])->name('result.notsafe');
 Route::get('/result/full/{scan_id}', [ResultController::class, 'full'])->name('result.full');
 
-// History and Comments Pages
+// History and Full Report
 Route::middleware(['auth'])->group(function () {
     Route::get('/history', [HistoryController::class, 'history'])->name('scan.history');
     Route::get('/report/full/{scan_id}', [HistoryController::class, 'full'])->name('report.full');
+
+
+    Route::get('/report/full/{scan_id}/download', [DownloadController::class, 'download'])->name('report.download');
 });
+
 Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 Route::get('/comments/check', [HistoryController::class, 'check'])->middleware('auth');
 Route::put('/comments/{comment}', [HistoryController::class, 'update'])->middleware('auth');

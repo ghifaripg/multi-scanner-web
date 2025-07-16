@@ -274,9 +274,6 @@
                 </p>
             @endif
         </div>
-
-
-
         {{-- Tombol Back dan Download sejajar dengan navbar & footer --}}
         <div class="d-flex align-items-center justify-content-between w-100 px-3"
             style="max-width: 1440px; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">
@@ -289,9 +286,10 @@
             </a>
 
             {{-- Tombol Download - Sejajar dengan Sign In --}}
-            <a href="#" class="btn-orange text-decoration-none"
+            <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}" class="btn-orange text-decoration-none"
                 style="position: absolute; bottom: 20px; right: 0; margin: 0 24px;">
                 Download Report
             </a>
+
         </div>
     @endsection
