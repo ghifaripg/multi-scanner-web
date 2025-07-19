@@ -144,33 +144,56 @@
 
                 @if (is_array($json))
                     <div class="bg-light rounded p-4">
-                        <div class="row">
-                            @php
-                                // Split into two chunks
-                                $half = ceil(count($json) / 2);
-                                $chunks = array_chunk($json, $half, true);
-                            @endphp
+                        <h5>Scan Summary</h5>
+                        <table class="table table-bordered table-sm mb-4">
+                            <tbody>
+                                @foreach (['Model Prediction', 'Confidence', 'WHOIS Safe', 'Reason'] as $key)
+                                    @if (isset($json[$key]))
+                                        <tr>
+                                            <th style="white-space: normal;">{{ $key }}</th>
+                                            <td>{{ $json[$key] }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
 
-                            @foreach ($chunks as $chunk)
-                                <div class="col-md-6">
-                                    <table class="table table-bordered table-sm mb-4">
-                                        <tbody>
-                                            @foreach ($chunk as $key => $value)
-                                                <tr>
-                                                    <th style="white-space: normal;">{{ $key }}</th>
-                                                    <td>{{ is_numeric($value) ? number_format($value, 4) : $value }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @endforeach
-                        </div>
+                        @if (isset($json['Features']) && is_array($json['Features']))
+                            <h5>Extracted Features</h5>
+                            <div class="row">
+                                @php
+                                    $features = $json['Features'];
+                                    $half = ceil(count($features) / 2);
+                                    $chunks = array_chunk($features, $half, true);
+                                @endphp
+
+                                @foreach ($chunks as $chunk)
+                                    <div class="col-md-6">
+                                        <table class="table table-bordered table-sm mb-4">
+                                            <tbody>
+                                                @foreach ($chunk as $key => $value)
+                                                    <tr>
+                                                        <th style="white-space: normal;">{{ $key }}</th>
+                                                        <td>
+                                                            @if (is_numeric($value))
+                                                                {{ rtrim(rtrim(number_format((float) $value, 6, '.', ''), '0'), '.') }}
+                                                            @else
+                                                                {{ $value }}
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 @else
                     <pre class="bg-light rounded p-4" style="font-family: monospace; white-space: pre-wrap;">
-                    {{ implode('', $reportLines) }}
-                    </pre>
+        {{ implode('', $reportLines) }}
+        </pre>
                 @endif
             @elseif ($scan->scan_type === 'file' && isset($reportLines))
                 @php
@@ -286,8 +309,8 @@
             </a>
 
             {{-- Tombol Download - Sejajar dengan Sign In --}}
-            <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}" class="btn-orange text-decoration-none"
-                style="position: absolute; bottom: 20px; right: 0; margin: 0 24px;">
+            <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}"
+                class="btn-orange text-decoration-none" style="position: absolute; bottom: 20px; right: 0; margin: 0 24px;">
                 Download Report
             </a>
 

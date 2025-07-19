@@ -36,7 +36,14 @@ class UrlScannerController extends Controller
             'scan_title' => $url,
             'scan_type' => 'url',
             'scan_result' => $data['result'],
-            'full_report' => json_encode($data['features'], JSON_PRETTY_PRINT),
+            'full_report' => json_encode([
+                'Model Prediction' => $data['model_prediction'] ?? null,
+                'Confidence' => $data['confidence'] ?? null,
+                'WHOIS Safe' => $data['whois_safe'] ?? null,
+                'Features' => $data['features'] ?? null,
+                'Reason' => $data['reason'] ?? null,
+            ], JSON_PRETTY_PRINT),
+
         ]);
 
         $scanId = $scan->scan_id;
