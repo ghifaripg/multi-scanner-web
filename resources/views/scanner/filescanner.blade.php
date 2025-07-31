@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('partials.favicon')
 @include('partials.loading-overlay')
 
 @section('content')

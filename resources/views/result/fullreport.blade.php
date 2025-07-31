@@ -41,22 +41,21 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>URL</th>
-                                            <th>Obfuscated</th>
-                                            <th>Malicious</th>
-                                            <th>Suspicious</th>
-                                            <th>Harmless</th>
+                                            <th>Result</th>
+                                            <th>Model Prediction</th>
+                                            <th>Confidence</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($json['urls'] as $urlData)
                                             <tr>
                                                 <td style="word-break: break-all;">{{ $urlData['url'] }}</td>
-                                                <td>{{ $urlData['obfuscated'] ? 'Yes' : 'No' }}</td>
-                                                <td>{{ $urlData['malicious'] }}</td>
-                                                <td>{{ $urlData['suspicious'] }}</td>
-                                                <td>{{ $urlData['harmless'] }}</td>
+                                                <td>{{ $urlData['result'] }}</td>
+                                                <td>{{ $urlData['model_prediction'] }}</td>
+                                                <td>{{ $urlData['confidence'] }}</td>
                                             </tr>
                                         @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

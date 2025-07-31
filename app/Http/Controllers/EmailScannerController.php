@@ -26,7 +26,7 @@ class EmailScannerController extends Controller
             $file = $request->file('email');
             $fastApiUrl = config('app.fastapi_url', 'http://127.0.0.1:8001');
 
-            $response = Http::timeout(120) // Added timeout
+            $response = Http::timeout(120)
                 ->attach(
                     'file',
                     file_get_contents($file->getRealPath()),
@@ -42,7 +42,7 @@ class EmailScannerController extends Controller
             }
 
             $data = $response->json();
-            
+
             $scan = Scan::create([
                 'user_id' => Auth::id() ?? 1, // Simplified null coalescing
                 'scan_title' => $data['header_analysis']['From'] ?? 'Unknown Sender',
