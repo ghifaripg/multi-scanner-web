@@ -1,4 +1,4 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="max-w-3xl mx-auto p-6">
@@ -8,18 +8,18 @@
             $status === 'safe' ? 'images/SafeIcon.png' :
             ($status === 'suspicious' ? 'images/SuspiciousIcon.png' : 'images/NotSafeIcon.png')
         ) }}" class="mx-auto w-24 h-24 mb-4" alt="Status Icon">
-        
-        
+
+
         <h1 class="text-3xl font-bold text-gray-800">
             {{ $status === 'safe' ? 'Safe!' : ($status === 'suspicious' ? 'Suspicious!' : 'Not Safe!') }}
         </h1>
 
         <p class="mt-2 text-gray-600">
-            {{ $status === 'safe' 
-                ? 'No threats or suspicious activities were detected. The scanned input appears to be safe.' 
+            {{ $status === 'safe'
+                ? 'No threats or suspicious activities were detected. The scanned input appears to be safe.'
                 : ($status === 'suspicious'
                     ? 'Some potentially harmful indicators were found. It is advised to proceed with caution and conduct further inspection.'
-                    : 'Potential threats were detected. It is recommended not to proceed with this file/link/email without further review.') 
+                    : 'Potential threats were detected. It is recommended not to proceed with this file/link/email without further review.')
             }}
         </p>
 

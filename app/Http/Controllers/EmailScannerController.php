@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Log;
 class EmailScannerController extends Controller
 {
     public function showForm()
-        {
-            return view('scanner.emailscanner'); // Make sure this matches your actual view
-        }
+    {
+        return view('scanner.emailscanner'); // Make sure this matches your actual view
+    }
 
     public function submit(Request $request)
     {
@@ -44,8 +44,8 @@ class EmailScannerController extends Controller
             $data = $response->json();
 
             $scan = Scan::create([
-                'user_id' => Auth::id() ?? 1, // Simplified null coalescing
-                'scan_title' => $data['header_analysis']['From'] ?? 'Unknown Sender',
+                'user_id' => Auth::id() ?? 1,
+                'scan_title' => $data['header_analysis']['headers']['From'] ?? 'Unknown Sender',
                 'scan_type' => 'email',
                 'scan_result' => $data['final_assessment']['status'],
                 'full_report' => json_encode($data, JSON_PRETTY_PRINT),
@@ -54,7 +54,6 @@ class EmailScannerController extends Controller
             Session::put('latest_scan_id', $scan->scan_id);
 
             return $this->routeToResult($data['final_assessment']['status'], $scan->scan_id);
-
         } catch (\Exception $e) {
             Log::error('Email scan exception', ['error' => $e->getMessage()]);
             return back()->with('error', 'Scan error: ' . $e->getMessage());

@@ -22,7 +22,7 @@ class UrlScannerController extends Controller
         ]);
 
         $url = $request->input('url');
-        $response = Http::post('http://47.129.39.145:8000/predict/url', ['url' => $url]);
+        $response = Http::post('http://127.0.0.1:8002/predict/url', ['url' => $url]);
 
         if ($response->failed()) {
             return back()->with('error', 'Failed to scan the URL.');
