@@ -20,7 +20,7 @@
             <div class="uploadBox upload-box">
 
                 {{-- Hidden file input --}}
-                <input type="file" name="file" class="fileInput d-none" accept=".exe,.pdf">
+                <input type="file" name="file" class="fileInput d-none" accept=".exe">
 
                 {{-- Default text --}}
                 <div class="uploadText">
