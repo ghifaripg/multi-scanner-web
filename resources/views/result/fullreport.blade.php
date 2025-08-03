@@ -33,6 +33,33 @@
                             </table>
                         @endif
 
+                        {{-- Attachments --}}
+                        @if (!empty($json['attachments']))
+                            <h5 class="fw-bold">Attachments</h5>
+                            <div class="table-responsive mb-4">
+                                <table class="table table-bordered table-sm">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>File</th>
+                                            <th>Malicious</th>
+                                            <th>Suspicious</th>
+                                            <th>Harmless</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($json['attachments'] as $attachment)
+                                            <tr>
+                                                <td style="word-break: break-word;">{{ $attachment['file'] }}</td>
+                                                <td>{{ $attachment['malicious'] }}</td>
+                                                <td>{{ $attachment['suspicious'] }}</td>
+                                                <td>{{ $attachment['harmless'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
+
                         {{-- URLs --}}
                         @if (!empty($json['urls']))
                             <h5 class="fw-bold">URLs</h5>
