@@ -24,7 +24,7 @@ class EmailScannerController extends Controller
 
         try {
             $file = $request->file('email');
-            $fastApiUrl = config('app.fastapi_url', 'http://127.0.0.1:8001');
+            $fastApiUrl = config('app.fastapi_url', 'http://34.50.76.83:8000');
 
             $response = Http::timeout(120)
                 ->attach(
@@ -64,7 +64,7 @@ class EmailScannerController extends Controller
     {
         return match ($status) {
             'Safe' => redirect()->route('result.safe', $scanId),
-            'Suspicious (Review Needed)' => redirect()->route('result.suspicious', $scanId),
+            'Suspicious' => redirect()->route('result.suspicious', $scanId),
             default => redirect()->route('result.notsafe', $scanId),
         };
     }
