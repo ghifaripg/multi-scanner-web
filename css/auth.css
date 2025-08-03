@@ -1,14 +1,26 @@
 /* ===============================
+   Base Styles
+================================ */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Manrope', sans-serif;
+}
+
+/* ===============================
    Background Fullscreen
 ================================ */
 .auth-container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /* ===============================
@@ -17,20 +29,11 @@
 .login-page {
     background: url('../images/Loginbg.png') no-repeat right center;
     background-size: cover;
-    padding: 20px;
     overflow: hidden;
-}
-
-/* Prevent scrollbars on the whole page */
-html, body {
-    overflow: hidden;
-    height: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 /* ===============================
-   register Background
+   Register Background
 ================================ */
 .register-page {
     background: url('../images/registerbg.png') no-repeat left center;
@@ -41,75 +44,74 @@ html, body {
    Title Styling
 ================================ */
 .auth-title {
-    font-size: 96px;
-    font-family: 'Manrope', sans-serif;
+    font-size: clamp(48px, 8vw, 96px); /* Responsive font size */
     font-weight: 800;
     color: #FF6666;
+    margin-bottom: 20px;
 }
 
 /* ===============================
-   Form Styling (Shifted Right)
+   Form Styling
 ================================ */
-.auth-form {
-    width: 450px;
-    padding: 40px;
+.auth-form, .register-form {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 16px;
-    position: absolute;
-    right: 10%;
+    box-sizing: border-box;
+    margin: 20px;
 }
 
-
-/* ===============================
-   Form Styling - Pindah ke Kiri
-================================ */
-.register-form {
-    width: 450px;
-    padding: 40px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 16px;
-    position: absolute;
-    left: 10%;
+/* Position forms differently for desktop */
+@media (min-width: 992px) {
+    .auth-form {
+        position: absolute;
+        right: 10%;
+    }
+    .register-form {
+        position: absolute;
+        left: 10%;
+    }
 }
 
 /* ===============================
-   Spacing dalam Form
+   Form Elements
 ================================ */
 .form-group {
-    margin-bottom: 32px; /* Memberikan lebih banyak jarak antar elemen */
+    margin-bottom: 32px;
 }
 
-.btn-rounded {
-    margin-top: 40px; /* Memberikan jarak lebih sebelum tombol Register */
-}
-
-
-/* ===============================
-   Rounded Input Fields
-================================ */
 .form-group input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 25px;
     font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #333;
+}
+
+.form-group input::placeholder {
+    font-size: 16px;
+    color: #333;
 }
 
 /* ===============================
-   Back Button Position
-================================ */
-.btn-back {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    z-index: 10;
-}
-
-/* ===============================
-   Rounded Button Styles
+   Button Styles
 ================================ */
 .btn-rounded {
-    width: 202px;
+    width: 100%;
+    max-width: 202px;
     height: 59px;
     padding: 15px 48px;
     border-radius: 50px;
@@ -120,70 +122,75 @@ html, body {
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s ease-in-out;
-    font-family: 'Manrope', sans-serif;
     cursor: pointer;
     background-color: #FF6666;
     color: white;
+    margin: 40px auto 0;
 }
 
 .btn-rounded:hover {
     background-color: #d93f1c;
 }
 
+/* ===============================
+   Back Button
+================================ */
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .btn-back {
+        top: 40px;
+        left: 40px;
+    }
+}
 
 /* ===============================
-   Center Align Login & Button
+   Text Elements
 ================================ */
-.auth-title, .btn-rounded {
-    text-align: center;
+.auth-subtitle {
+    font-weight: 400;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.auth-hint {
     display: block;
-    margin: 0 auto;
+    text-align: left;
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
 }
 
-/* ===============================
-   Semi Bold Styling for Labels & Placeholders
-================================ */
-.auth-subtitle, .form-group label {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 400; /* Semi-bold */
-    font-size: 18px;
-    color: #333;
-}
-
-.form-group input::placeholder {
-    font-family: 'Manrope', sans-serif;
-
-    font-size: 18px;
-    color: #333;
-}
-
-/* ===============================
-   Body Text Alignment
-================================ */
-.auth-form {
-    text-align: left; /* Mengatur semua teks agar rata kiri */
-}
-
-/* ===============================
-   Forgot Password di Kanan
-================================ */
 .forgot-password {
     display: block;
     text-align: right;
     font-size: 14px;
     color: #F24822;
     text-decoration: none;
+    margin-top: 8px;
 }
 
 .forgot-password:hover {
     text-decoration: underline;
 }
 
-/* ===============================
-   Center Align Login & New Here? Text
-================================ */
 .auth-footer {
     text-align: center;
+    margin-top: 20px;
 }
 
+.auth-link {
+    color: #F24822;
+    text-decoration: none;
+}
 
+.auth-link:hover {
+    text-decoration: underline;
+}

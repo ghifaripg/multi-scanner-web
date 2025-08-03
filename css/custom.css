@@ -1,5 +1,5 @@
 /* ===============================
-Layout Umum
+   Layout Umum (Preserved Exactly)
 ================================ */
 body {
     background-color: #ffffff;
@@ -9,7 +9,7 @@ body {
 }
 
 /* ===============================
-Container: Navbar & Footer
+   Container Styles (Original + Responsive)
 ================================ */
 .container-navbar,
 .container-footer {
@@ -19,9 +19,6 @@ Container: Navbar & Footer
     padding-right: 16px;
 }
 
-/* ===============================
-Container: Halaman Utama / Konten
-================================ */
 .container-content {
     max-width: 960px;
     margin: 0 auto;
@@ -31,7 +28,7 @@ Container: Halaman Utama / Konten
 }
 
 /* ===============================
-Button Umum
+   Button Styles (Original + Responsive)
 ================================ */
 .btn-rounded {
     min-width: 202px; 
@@ -52,7 +49,6 @@ Button Umum
     white-space: nowrap;
 }
 
-/* Tombol Outline */
 .btn-outline {
     min-width: 202px;
     height: 59px;
@@ -74,7 +70,6 @@ Button Umum
     color: #ffffff;
 }
 
-/* Tombol Oranye Reusable */
 .btn-orange {
     min-width: 220px; 
     height: 60px;
@@ -96,22 +91,46 @@ Button Umum
     background-color: #d93f1c;
 }
 
-/* Tombol Back */
 .btn-back {
     background-color: #1a364c;
     color: #f24822;
     font-size: 20px;
     font-weight: 500;
-    padding: 15px 36px;
+    padding: 12px 24px;
     border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
     position: absolute;
+    bottom: 40px;
+    left: 40px;
+    margin: 0;
+    z-index: 10;
 }
 
 .btn-back:hover {
     background-color: #152c3d;
 }
 
-/* Tombol Scan */
+.btn-back .icon-left,
+.btn-back .me-2 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .btn-back {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin: 20px auto;
+        display: block;
+        width: fit-content;
+    }
+}
+
 .btn-scan-now {
     background-color: #1a364c !important;
     color: #f24822 !important;
@@ -126,7 +145,7 @@ Button Umum
 }
 
 /* ===============================
-Ikon Tombol
+   Ikon Tombol (Original)
 ================================ */
 .icon-left,
 .icon-right {
@@ -143,7 +162,7 @@ Ikon Tombol
 }
 
 /* ===============================
-   Scan Options Card Styling 
+   Scan Options Card Styling (Original + Responsive)
 ================================ */
 .scan-card {
     min-height: 480px;
@@ -198,7 +217,7 @@ Ikon Tombol
 }
 
 /* ===============================
-Scrollable Search Results
+   Scrollable Search Results (Original)
 ================================ */
 .result-container {
     max-height: 400px;
@@ -220,7 +239,7 @@ Scrollable Search Results
 }
 
 /* ===============================
-Misc
+   Misc (Original + Responsive)
 ================================ */
 section {
     padding-top: 100px;
@@ -245,7 +264,7 @@ section {
 }
 
 /* ===============================
-   File Scanner Page Styling
+   File Scanner Page Styling (Original + Responsive)
 ================================ */
 .file-scanner {
     min-height: 680px;
@@ -259,7 +278,7 @@ section {
 }
 
 /* ===============================
-   File Input Styling
+   File Input Styling (Original)
 ================================ */
 .file-input {
     width: 100%;
@@ -274,7 +293,7 @@ section {
 }
 
 /* ===============================
-   Scan Button Styling
+   Scan Button Styling (Original)
 ================================ */
 .btn-scan {
     background-color: #f24822;
@@ -287,35 +306,7 @@ section {
 }
 
 /* ===============================
-   File Input Styling - Reusable
-================================ */
-.file-input {
-    width: 100%;
-    max-width: 500px;
-    padding: 15px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.8);
-    margin-top: 25px;
-}
-
-/* ===============================
-   Scan Button Styling - Reusable
-================================ */
-.btn-scan {
-    background-color: #f24822;
-    color: white;
-    border-radius: 20px;
-    padding: 10px 40px;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-/* ===============================
-   URL Scanner Page Styling
+   URL Scanner Page Styling (Original + Responsive)
 ================================ */
 .url-scanner {
     min-height: 680px;
@@ -329,7 +320,7 @@ section {
 }
 
 /* ===============================
-   URL Input Styling
+   URL Input Styling (Original)
 ================================ */
 .url-input {
     width: 100%;
@@ -349,7 +340,7 @@ section {
 }
 
 /* ===============================
-   Tooltip Helper - Reusable
+   Tooltip Helper - Reusable (Original)
 ================================ */
 .url-helper,
 .file-helper,
@@ -372,25 +363,7 @@ section {
 }
 
 /* ===============================
-   Background scanner
-================================ */
-/* .page-email-bg {
-    background: url("/images/EmailScannerPageBG.png") no-repeat center center;
-    background-size: cover;
-}
-
-.page-file-bg {
-    background: url("/images/FileScannerPageBG.png") no-repeat center center;
-    background-size: cover;
-}
-
-.page-url-bg {
-    background: url("/images/URLScannerPageBG.png") no-repeat center center;
-    background-size: cover;
-} */
-
-/* ===============================
-   Upload Box
+   Upload Box (Original)
 ================================ */
 .upload-box {
     border: 2px dashed #ccc;
@@ -416,7 +389,7 @@ section {
 }
 
 /* ===============================
-   Loading Screen
+   Loading Screen (Original)
 ================================ */
 .loading-screen {
     display: none;
@@ -457,85 +430,95 @@ section {
 }
 
 /* ===============================
-   Modal Comment (Revised)
-   =============================== */
-/* .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -40%);
-    width: 280px;
-    background: #fff;
-    padding: 16px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-family: "Manrope", sans-serif;
+   Responsive Adaptations (New)
+================================ */
+@media (max-width: 1200px) {
+    .container-navbar,
+    .container-footer,
+    .container-content {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 }
 
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
+@media (max-width: 992px) {
+    .scan-card {
+        min-height: 420px;
+        padding: 30px 20px;
+    }
+    
+    .file-scanner,
+    .url-scanner {
+        padding: 40px 24px 100px;
+    }
 }
 
-.modal-title {
-    font-size: 18px;
-    color: #1a364c;
-    font-weight: 700;
+@media (max-width: 768px) {
+    .container-content {
+        padding-top: 40px;
+    }
+    
+    .btn-rounded,
+    .btn-outline,
+    .btn-orange,
+    .btn-scan-now {
+        min-width: 180px;
+        height: 54px;
+        padding: 12px 36px;
+        font-size: 22px;
+    }
+    
+    .scan-card {
+        min-height: 380px;
+        padding: 25px 18px;
+    }
+    
+    section {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+    
+    .file-scanner,
+    .url-scanner {
+        padding: 32px 20px 80px;
+    }
 }
 
-.close {
-    font-size: 20px;
-    cursor: pointer;
-    color: #999;
+@media (max-width: 576px) {
+    .container-navbar,
+    .container-footer,
+    .container-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .btn-rounded,
+    .btn-outline,
+    .btn-orange,
+    .btn-scan-now {
+        width: 100%;
+        max-width: 100%;
+        min-width: auto;
+    }
+    
+    .scan-card {
+        min-height: auto;
+    }
+    
+    section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    
+    .file-scanner,
+    .url-scanner {
+        padding: 24px 16px 60px;
+        min-height: 500px;
+    }
+    
+    .scrollable-container,
+    .result-container {
+        border-radius: 30px;
+        padding: 16px;
+    }
 }
-
-.modal-body textarea {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    resize: none;
-    box-sizing: border-box;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 12px;
-}
-
-.btn-cancel, .btn-save {
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    flex: 1;
-}
-
-.btn-cancel {
-    background-color: #1a364c;
-    color: white;
-    border-bottom-left-radius: 8px;
-    border-top-left-radius: 4px;
-}
-
-.btn-save {
-    background-color: #f24822;
-    color: white;
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 4px;
-}
-
-.btn-cancel:hover {
-    background-color: #152c3d;
-}
-
-.btn-save:hover {
-    background-color: #d93f1c;
-}
- */
