@@ -131,6 +131,85 @@ body {
     }
 }
 
+#report-page-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 24px;
+
+  display: flex;
+  justify-content: space-between;  /* 👈 pushes them apart */
+  align-items: center;
+  flex-wrap: nowrap; /* prevent wrapping on desktop */
+}
+
+#report-page-buttons .btn-back,
+#report-page-buttons .btn-orange {
+  position: static; /* 👈 kill old absolute! */
+  margin: 0;        /* clean old margin */
+}
+
+@media (max-width: 768px) {
+  #report-page-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #report-page-buttons .btn-back,
+  #report-page-buttons .btn-orange {
+    width: 100%;
+    justify-content: center;
+    margin: 8px 0;
+  }
+}
+
+#result-page-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+#result-page-buttons .btn-back {
+  position: static; /* Make sure it stays in flex flow */
+}
+
+#result-page-buttons .right-buttons {
+  display: flex;
+  gap: 12px; /* space between Comment & Full Report */
+}
+
+@media (max-width: 768px) {
+  #result-page-buttons {
+    flex-direction: column-reverse;
+    align-items: center;
+    bottom: 60px; /* push higher on small screens if needed */
+  }
+
+  #result-page-buttons .btn-back,
+  #result-page-buttons .right-buttons {
+    width: 100%;
+    justify-content: center;
+    margin: 8px 0;
+  }
+
+  #result-page-buttons .right-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
 .btn-scan-now {
     background-color: #1a364c !important;
     color: #f24822 !important;

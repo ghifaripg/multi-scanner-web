@@ -324,21 +324,19 @@
             @endif
         </div>
         {{-- Tombol Back dan Download sejajar dengan navbar & footer --}}
-        <div class="d-flex align-items-center justify-content-between w-100 px-3"
+        <div id="report-page-buttons"
+            class="d-flex align-items-center justify-content-between w-100 px-3"
             style="max-width: 1440px; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">
 
-            {{-- Tombol Back - Sejajar dengan Logo ThreatPeek --}}
-            <a href="{{ url()->previous() }}" class="btn-back btn-rounded d-flex align-items-center"
-                style="position: absolute; bottom: 20px; left: 0; margin: 0 24px;">
-                <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left me-2">
-                Back
-            </a>
+        <!-- The buttons have NO position styles! -->
+        <a href="{{ url()->previous() }}" class="btn-back btn-rounded d-flex align-items-center">
+            <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left me-2">
+            Back
+        </a>
 
-            {{-- Tombol Download - Sejajar dengan Sign In --}}
-            <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}"
-                class="btn-orange text-decoration-none" style="position: absolute; bottom: 20px; right: 0; margin: 0 24px;">
-                Download Report
-            </a>
-
+        <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}"
+            class="btn-orange text-decoration-none">
+            Download Report
+        </a>
         </div>
     @endsection

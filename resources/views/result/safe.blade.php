@@ -91,23 +91,30 @@
         </section>
 
         {{-- Tombol --}}
-        <a href="/" class="btn-back position-absolute btn-rounded" style="bottom: 0; left: 0; margin: 24px;">
-            <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
-            Back
-        </a>
+        <div id="result-page-buttons"
+            class="d-flex justify-content-between"
+            style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); max-width: 1440px; width: 100%; padding: 0 24px;">
 
-        {{-- Container untuk Comment dan Full Report --}}
-        <div class="d-flex gap-3 position-absolute" style="bottom: 0; right: 0; margin: 24px;">
-            <button class="btn-orange btn-rounded comment-btn"
-                data-scan-id="{{ $scan_id }}"
-                style="font-size: 20px; padding: 12px 28px;">
+            <!-- Back Button -->
+            <a href="/" class="btn-back btn-rounded">
+                <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
+                Back
+            </a>
+
+            <!-- Right-side buttons -->
+            <div class="right-buttons d-flex gap-3">
+                <button class="btn-orange btn-rounded comment-btn"
+                        data-scan-id="{{ $scan_id }}"
+                        style="font-size: 20px; padding: 12px 28px;">
                 Comment
-            </button>
+                </button>
 
-            <a href="{{ route('result.full', ['scan_id' => $scan_id]) }}" class="btn-orange btn-rounded"
+                <a href="{{ route('result.full', ['scan_id' => $scan_id]) }}"
+                class="btn-orange btn-rounded"
                 style="font-size: 20px; padding: 12px 28px;">
                 Full Report
-            </a>
+                </a>
+            </div>
         </div>
     </div>
 
