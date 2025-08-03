@@ -64,7 +64,7 @@ class EmailScannerController extends Controller
     {
         return match ($status) {
             'Safe' => redirect()->route('result.safe', $scanId),
-            'Suspicious (Review Needed)' => redirect()->route('result.suspicious', $scanId),
+            'Suspicious' => redirect()->route('result.suspicious', $scanId),
             default => redirect()->route('result.notsafe', $scanId),
         };
     }
