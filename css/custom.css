@@ -31,7 +31,7 @@ body {
    Button Styles (Original + Responsive)
 ================================ */
 .btn-rounded {
-    min-width: 202px;
+    min-width: 202px; 
     height: 59px;
     padding: 15px 48px;
     border-radius: 50px;
@@ -71,7 +71,7 @@ body {
 }
 
 .btn-orange {
-    min-width: 220px;
+    min-width: 220px; 
     height: 60px;
     padding: 12px 28px;
     font-size: 20px;
@@ -446,7 +446,7 @@ section {
         min-height: 420px;
         padding: 30px 20px;
     }
-
+    
     .file-scanner,
     .url-scanner {
         padding: 40px 24px 100px;
@@ -457,7 +457,7 @@ section {
     .container-content {
         padding-top: 40px;
     }
-
+    
     .btn-rounded,
     .btn-outline,
     .btn-orange,
@@ -467,17 +467,17 @@ section {
         padding: 12px 36px;
         font-size: 22px;
     }
-
+    
     .scan-card {
         min-height: 380px;
         padding: 25px 18px;
     }
-
+    
     section {
         padding-top: 80px;
         padding-bottom: 80px;
     }
-
+    
     .file-scanner,
     .url-scanner {
         padding: 32px 20px 80px;
@@ -491,7 +491,7 @@ section {
         padding-left: 16px;
         padding-right: 16px;
     }
-
+    
     .btn-rounded,
     .btn-outline,
     .btn-orange,
@@ -500,22 +500,22 @@ section {
         max-width: 100%;
         min-width: auto;
     }
-
+    
     .scan-card {
         min-height: auto;
     }
-
+    
     section {
         padding-top: 60px;
         padding-bottom: 60px;
     }
-
+    
     .file-scanner,
     .url-scanner {
         padding: 24px 16px 60px;
         min-height: 500px;
     }
-
+    
     .scrollable-container,
     .result-container {
         border-radius: 30px;
