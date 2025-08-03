@@ -89,27 +89,27 @@
 
 
 
-        {{-- Scan Lookup --}}
-        <section id="scan-lookup">
-            <h1 class="fw-bold text-center mb-5" style="color: #F24822;">Scan Lookup</h1>
+{{-- Scan Lookup (Original Desktop Version Preserved) --}}
+<section id="scan-lookup">
+    <h1 class="fw-bold text-center mb-5" style="color: #F24822;">Scan Lookup</h1>
 
-            <!-- Search Form -->
-            <form id="searchForm" class="d-flex justify-content-center mb-4" role="search">
-                @csrf
-                <input class="form-control me-2 rounded-pill" type="search" id="searchInput" name="search"
-                    placeholder="Search email or URL scans..." aria-label="Search">
-                <button class="btn rounded-pill px-4" type="submit"
-                    style="background-color: #FF6666; color: white;">Search</button>
-            </form>
-            <small class="text-center d-block text-muted mb-3">Showing only Email and URL scan results</small>
+    <!-- Search Form (Unchanged Desktop Layout) -->
+    <form id="searchForm" class="d-flex justify-content-center mb-4" role="search">
+        @csrf
+        <input class="form-control me-2 rounded-pill" type="search" id="searchInput" name="search"
+            placeholder="Search email or URL scans..." aria-label="Search">
+        <button class="btn rounded-pill px-4" type="submit"
+            style="background-color: #FF6666; color: white;">Search</button>
+    </form>
+    <small class="text-center d-block text-muted mb-3">Showing only Email and URL scan results</small>
 
-            <!-- Results Container -->
-            <div id="resultsContainer" class="result-container" style="display: none;">
-                <div class="scrollable-list" id="resultsList">
-                    <!-- Results will be inserted here by JavaScript -->
-                </div>
-            </div>
-        </section>
+    <!-- Results Container (Unchanged) -->
+    <div id="resultsContainer" class="result-container" style="display: none;">
+        <div class="scrollable-list" id="resultsList">
+            <!-- Results will be inserted here by JavaScript -->
+        </div>
+    </div>
+</section>
 
         {{-- Scan Options --}}
         <section id="scan-options" class="scroll-target">
@@ -167,6 +167,7 @@
 @endsection
 
 <style>
+    /* Original Desktop Styles (Unchanged) */
     .result-container {
         max-height: 400px;
         overflow-y: auto;
@@ -186,6 +187,33 @@
         background-color: white;
         border-radius: 0.5rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Mobile-Only Adjustments (No Desktop Changes) */
+    @media (max-width: 768px) {
+        /* Search Form Stacking */
+        #searchForm {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.75rem;
+        }
+
+        #searchForm .form-control {
+            margin-right: 0 !important; /* Remove me-2 on mobile */
+            width: 100%;
+        }
+
+        /* Results List Adjustments */
+        .result-item {
+            flex-direction: column; /* Stack content vertically */
+            gap: 0.5rem;
+            align-items: center; /* Left-align stacked content */
+        }
+
+        /* Optional: Reduce padding on mobile */
+        .result-item {
+            padding: 0.75rem;
+        }
     }
 </style>
 
