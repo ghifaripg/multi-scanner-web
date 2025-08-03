@@ -42,9 +42,8 @@
         </form>
 
         {{-- Back Button --}}
-        <a href="{{ url()->previous() }}" class="btn-back position-absolute btn-rounded d-flex align-items-center"
-            style="bottom: 0; left: 0; margin: 24px;">
-            <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left me-2">
+        <a href="{{ url()->previous() }}" class="btn-back btn-rounded d-flex align-items-center">
+            <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
             Back
         </a>
     </div>
