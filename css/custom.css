@@ -179,6 +179,53 @@ body {
         }
     }
 
+    #back-button-history-page {
+        margin-top: 3rem !important;  /* Increased top margin */
+        padding-top: 1.5rem;         /* Added padding above button */
+        border-top: 1px solid #eee;  /* Optional subtle separator */
+    }
+
+    #back-button-history-page .btn-back {
+        background-color: #1a364c;
+        color: #f24822;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 12px 24px;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;  /* Changed from absolute to relative */
+        bottom: auto;
+        left: auto;
+        margin: 0 auto;     /* Centered horizontally */
+        z-index: 10;
+    }
+
+    #back-button-history-page .btn-back:hover {
+        background-color: #152c3d;
+    }
+
+    #back-button-history-page .btn-back .icon-left,
+    #back-button-history-page .btn-back .me-2 {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+        #back-button-history-page {
+            margin-top: 2rem !important;
+            padding-top: 1rem;
+        }
+        
+        #back-button-history-page .btn-back {
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+    }
+
 #report-page-buttons {
   position: absolute;
   bottom: 20px;
