@@ -24,7 +24,7 @@ class EmailScannerController extends Controller
 
         try {
             $file = $request->file('email');
-            $fastApiUrl = config('app.fastapi_url', 'http://34.101.59.74:8000');
+            $fastApiUrl = config('app.fastapi_url', 'http://34.50.111.192:8000');
 
             $response = Http::timeout(120)
                 ->attach(

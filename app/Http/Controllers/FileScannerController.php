@@ -28,7 +28,7 @@ class FileScannerController extends Controller
 
             // Send file to FastAPI
             $client = new \GuzzleHttp\Client();
-            $response = $client->request('POST', 'http://13.213.46.180:8000/predict/file', [
+            $response = $client->request('POST', 'http://13.250.41.126:8000/predict/file', [
                 'multipart' => [
                     [
                         'name'     => 'file',
