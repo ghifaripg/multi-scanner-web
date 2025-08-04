@@ -12,7 +12,7 @@
             <button type="submit" class="btn btn-scan mt-3 mt-md-4" id="scanBtn">Scan</button>
         </form>
 
-        <a href="{{ url()->previous() }}" class="btn-back btn-rounded mt-4 mt-md-5" style="margin-bottom: 24px;">
+        <a href="/" class="btn-back btn-rounded mt-4 mt-md-5" style="margin-bottom: 24px;">
             <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
             Back
         </a>
