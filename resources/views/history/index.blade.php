@@ -5,7 +5,7 @@
         <h2 class="fw-bold text-danger mb-4" style="color: #F24822 !important;">Your scans</h2>
 
         <!-- Scrollable Scan History -->
-        <div class="scan-history-container" id="scan-history">
+        <div class="scrollable-container" id="scan-history">
             <div class="d-flex flex-column gap-3">
                 @forelse ($scans as $scan_id)
                     <div class="scan-history-item p-3 rounded-4 border d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center shadow-sm">
