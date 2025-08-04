@@ -41,10 +41,8 @@ Route::get('/result/full/{scan_id}', [ResultController::class, 'full'])->name('r
 Route::middleware(['auth'])->group(function () {
     Route::get('/history', [HistoryController::class, 'history'])->name('scan.history');
     Route::get('/report/full/{scan_id}', [HistoryController::class, 'full'])->name('report.full');
-
-
-    Route::get('/report/full/{scan_id}/download', [DownloadController::class, 'download'])->name('report.download');
 });
+Route::get('/report/full/{scan_id}/download', [DownloadController::class, 'download'])->name('report.download');
 
 Route::post('/comments', [HistoryController::class, 'store'])->middleware('auth');
 Route::get('/comments/check', [HistoryController::class, 'check'])->middleware('auth');
@@ -67,4 +65,3 @@ Route::view('/prevent/exe-dangers', 'result.prevent.exerisks')->name('prevent.ex
 Route::view('/prevent/url-attacks', 'result.prevent.urlattacks')->name('prevent.urlattacks');
 Route::view('/prevent/fake-emails', 'result.prevent.fakeemails')->name('prevent.fakeemails');
 Route::view('/prevent/general-tips', 'result.prevent.generaltips')->name('prevent.generaltips');
-
