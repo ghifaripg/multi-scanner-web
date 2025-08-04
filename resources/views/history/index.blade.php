@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <a href="/" class="btn-back btn-rounded mt-4 mt-md-5" style="margin-bottom: 60px;">
+        <a href="{{ url()->previous() }}" class="btn-back btn-rounded mt-4 mt-md-5" style="margin-bottom: 60px;">
             <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
             Back
         </a>
