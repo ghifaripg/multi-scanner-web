@@ -5,35 +5,34 @@
         <h2 class="fw-bold text-danger mb-4" style="color: #F24822 !important;">Your scans</h2>
 
         <!-- Scrollable Scan History -->
-        <div class="scrollable-container">
+        <div class="scan-history-container" id="scan-history">
             <div class="d-flex flex-column gap-3">
                 @forelse ($scans as $scan_id)
-                    <div class="p-3 rounded-4 border d-flex justify-content-between align-items-center shadow-sm">
-                        <div>
-                            <div class="fw-semibold">{{ $scan_id->scan_title }}</div>
-                            <small class="text-muted">{{ $scan_id->scan_type }}</small><br>
-                            <span class="text-muted">{{ $scan_id->scan_result }}</span>
+                    <div class="scan-history-item p-3 rounded-4 border d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center shadow-sm">
+                        <div class="scan-content mb-2 mb-md-0">
+                            <div class="fw-semibold scan-title">{{ $scan_id->scan_title }}</div>
+                            <small class="text-muted scan-type">{{ $scan_id->scan_type }}</small><br>
+                            <span class="text-muted scan-result">{{ $scan_id->scan_result }}</span>
                         </div>
-                        <div class="d-flex flex-column align-items-end gap-2">
-                            <small class="text-muted">
+                        <div class="scan-meta d-flex flex-column align-items-end gap-2">
+                            <small class="text-muted scan-date">
                                 <i class="bi bi-clock"></i> {{ $scan_id->created_at->format('Y-m-d') }}
                             </small>
-                            <div class="d-flex gap-2">
+                            <div class="scan-actions d-flex flex-wrap gap-2">
                                 <a href="{{ route('report.full', ['scan_id' => $scan_id]) }}"
-                                    class="btn btn-outline-secondary btn-sm rounded-5 px-3" style="color: #F24822">Full
-                                    Report</a>
+                                    class="btn btn-outline-secondary btn-sm rounded-5 px-3 full-report-btn" style="color: #F24822">Full Report</a>
                                 <button class="btn btn-outline-secondary btn-sm rounded-5 px-3 comment-btn"
                                     data-scan-id="{{ $scan_id->scan_id }}">Comment</button>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <p class="text-muted">No scan history found.</p>
+                    <p class="text-muted no-scans">No scan history found.</p>
                 @endforelse
             </div>
         </div>
 
-        <a href="/" class="btn-back btn-rounded">
+        <a href="/" class="btn-back btn-rounded mt-4 mt-md-5" style="margin-bottom: 60px;">
             <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
             Back
         </a>
@@ -130,3 +129,53 @@
 @section('scripts')
     <script src="{{ asset('js/custom.js') }}"></script>
 @endsection
+
+
+<style>
+    #scan-history .scan-history-item {
+  background: white;
+}
+
+#scan-history .scan-title {
+  font-size: 1rem;
+}
+
+#scan-history .scan-type,
+#scan-history .scan-result,
+#scan-history .scan-date {
+  font-size: 0.875rem;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767.98px) {
+  #scan-history .scan-history-item {
+    padding: 1rem;
+  }
+
+  #scan-history .scan-content {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  #scan-history .scan-meta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretch to fill */
+    gap: 0.5rem;
+  }
+
+  #scan-history .scan-actions {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  #scan-history .full-report-btn,
+  #scan-history .comment-btn {
+    flex: 1 1 auto;
+    text-align: center;
+    min-width: 120px;
+  }
+}
+</style>
