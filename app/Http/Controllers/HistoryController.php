@@ -44,8 +44,9 @@ class HistoryController extends Controller
 
         $reportLines = explode("\n", $scan->full_report);
         $filename = $scan->scan_title;
+        $result = $scan->scan_result;
 
-        return view('result.fullreport', compact('reportLines', 'filename', 'scan'));
+        return view('result.fullreport', compact('reportLines', 'filename', 'scan', 'result'));
     }
 
     public function store(Request $request)
