@@ -32,12 +32,10 @@
             </div>
         </div>
 
-        <div id="back-button-history-page">
             <a href="/" class="btn-back btn-rounded mt-4 mt-md-5" style="margin-bottom: 60px;">
                 <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left">
                 Back
             </a>
-        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
