@@ -224,55 +224,63 @@
             @elseif ($scan->scan_type === 'file' && isset($reportLines))
                 @php
                     $json = json_decode(implode('', $reportLines), true);
+                    $features = $json['features'] ?? [];
                 @endphp
 
                 @if (is_array($json))
                     <div class="bg-light rounded p-4">
                         <h5 class="fw-bold">File Scan Report</h5>
+
+                        <p><strong>Result:</strong> {{ $json['result'] ?? '-' }}</p>
+                        <p><strong>Threat Score:</strong> {{ $json['threat_score'] ?? '-' }}</p>
+                        <p><strong>Reason:</strong> {{ $json['reason'] ?? '-' }}</p>
+
+                        <hr>
+
                         <table class="table table-bordered table-sm mb-4">
                             <tbody>
                                 <tr>
                                     <th>Filename</th>
-                                    <td>{{ $json['filename'] ?? '-' }}</td>
+                                    <td>{{ $features['filename'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>File Size</th>
-                                    <td>{{ number_format($json['file_size'] ?? 0) }} bytes</td>
+                                    <td>{{ number_format($features['file_size'] ?? 0) }} bytes</td>
                                 </tr>
                                 <tr>
                                     <th>File Type</th>
-                                    <td>{{ $json['file_type'] ?? '-' }}</td>
+                                    <td>{{ $features['file_type'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>MD5</th>
-                                    <td style="word-break: break-all;">{{ $json['md5'] ?? '-' }}</td>
+                                    <td style="word-break: break-all;">{{ $features['md5'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>SHA-1</th>
-                                    <td style="word-break: break-all;">{{ $json['sha1'] ?? '-' }}</td>
+                                    <td style="word-break: break-all;">{{ $features['sha1'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>SHA-256</th>
-                                    <td style="word-break: break-all;">{{ $json['sha256'] ?? '-' }}</td>
+                                    <td style="word-break: break-all;">{{ $features['sha256'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Entropy</th>
-                                    <td>{{ $json['entropy'] ?? '-' }}</td>
+                                    <td>{{ $features['entropy'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Non-ASCII Ratio</th>
-                                    <td>{{ $json['non_ascii_ratio'] ?? '-' }}</td>
+                                    <td>{{ $features['non_ascii_ratio'] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Sandbox Detection</th>
-                                    <td>{{ $json['sandbox_detected'] ?? 'Not detected' }}</td>
+                                    <td>{{ $features['sandbox_detected'] ?? 'Not detected' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Embedded URLs/IPs</th>
                                     <td>
-                                        @if (!empty($json['embedded_urls_ips']))
+                                        @if (!empty($features['embedded_urls_ips']))
                                             <ul class="mb-0">
-                                                @foreach ($json['embedded_urls_ips'] as $url)
+                                                @foreach ($features['embedded_urls_ips'] as $url)
                                                     <li style="word-break: break-all;">{{ $url }}</li>
                                                 @endforeach
                                             </ul>
@@ -284,9 +292,9 @@
                                 <tr>
                                     <th>Suspicious API Calls</th>
                                     <td>
-                                        @if (!empty($json['suspicious_api_calls']))
+                                        @if (!empty($features['suspicious_api_calls']))
                                             <ul class="mb-0">
-                                                @foreach ($json['suspicious_api_calls'] as $api)
+                                                @foreach ($features['suspicious_api_calls'] as $api)
                                                     <li>{{ $api }}</li>
                                                 @endforeach
                                             </ul>
@@ -298,9 +306,9 @@
                                 <tr>
                                     <th>Sample Strings</th>
                                     <td>
-                                        @if (!empty($json['strings_sample']))
+                                        @if (!empty($features['strings_sample']))
                                             <ul class="mb-0" style="max-height: 200px; overflow-y: auto;">
-                                                @foreach ($json['strings_sample'] as $string)
+                                                @foreach ($features['strings_sample'] as $string)
                                                     <li style="word-break: break-all;">{{ $string }}</li>
                                                 @endforeach
                                             </ul>
@@ -311,6 +319,8 @@
                                 </tr>
                             </tbody>
                         </table>
+
+
                     </div>
                 @else
                     <pre class="bg-light rounded p-4" style="font-family: monospace; white-space: pre-wrap;">
@@ -324,19 +334,18 @@
             @endif
         </div>
         {{-- Tombol Back dan Download sejajar dengan navbar & footer --}}
-        <div id="report-page-buttons"
-            class="d-flex align-items-center justify-content-between w-100 px-3"
+        <div id="report-page-buttons" class="d-flex align-items-center justify-content-between w-100 px-3"
             style="max-width: 1440px; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">
 
-        <!-- The buttons have NO position styles! -->
-        <a href="{{ url()->previous() }}" class="btn-back btn-rounded d-flex align-items-center">
-            <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left me-2">
-            Back
-        </a>
+            <!-- The buttons have NO position styles! -->
+            <a href="{{ url()->previous() }}" class="btn-back btn-rounded d-flex align-items-center">
+                <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="icon-left me-2">
+                Back
+            </a>
 
-        <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}"
-            class="btn-orange text-decoration-none">
-            Download Report
-        </a>
+            <a href="{{ route('report.download', ['scan_id' => request()->route('scan_id')]) }}"
+                class="btn-orange text-decoration-none">
+                Download Report
+            </a>
         </div>
     @endsection
