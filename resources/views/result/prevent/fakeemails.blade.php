@@ -81,7 +81,7 @@
 
             <!-- Back Button -->
             <div id="back-button-tips-page" class="mt-5 mb-4 pt-3">  <!-- Added margin and padding classes -->
-                <a href="/" class="btn-back btn-rounded d-inline-flex align-items-center px-4 py-2">
+                <a href="{{ url()->previous() }}" class="btn-back btn-rounded d-inline-flex align-items-center px-4 py-2">
                     <img src="{{ asset('images/arrow-left.svg') }}" alt="Back" class="me-2" style="height: 16px;">
                     Back
                 </a>
