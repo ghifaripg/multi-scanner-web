@@ -177,12 +177,19 @@
                                     @if (isset($json[$key]))
                                         <tr>
                                             <th style="white-space: normal;">{{ $key }}</th>
-                                            <td>{{ $json[$key] }}</td>
+                                            <td>
+                                                @if ($key === 'WHOIS Safe')
+                                                    {{ $json[$key] ? 'Pass' : 'Not Safe' }}
+                                                @else
+                                                    {{ $json[$key] }}
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endif
                                 @endforeach
                             </tbody>
                         </table>
+
 
                         @if (isset($json['Features']) && is_array($json['Features']))
                             <h5>Extracted Features</h5>
