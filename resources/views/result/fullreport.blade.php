@@ -179,7 +179,7 @@
                                             <th style="white-space: normal;">{{ $key }}</th>
                                             <td>
                                                 @if ($key === 'WHOIS Safe')
-                                                    {{ $json[$key] ? 'Pass' : 'Not Safe' }}
+                                                    {{ $json[$key] ? 'Yes' : 'No' }}
                                                 @else
                                                     {{ $json[$key] }}
                                                 @endif
