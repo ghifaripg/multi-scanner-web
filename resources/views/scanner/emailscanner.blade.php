@@ -35,7 +35,15 @@
             </div>
 
             {{-- Helper Text --}}
-            <small class="text-muted mt-2">Only .eml files</small>
+            <div class="text-center mt-2">
+                <small class="text-muted d-block">Only .eml files</small>
+                <a href="javascript:void(0);" id="emailPluginHelp"
+                    style="text-decoration: underline; cursor: pointer; font-size: 0.875rem;">
+                    You can directly scan in Gmail by following this step
+                </a>
+            </div>
+
+
 
             {{-- Submit Button --}}
             <button type="submit" class="btn btn-scan btn-disabled mt-4" id="scanBtn" disabled>Scan</button>
@@ -163,5 +171,26 @@
             scanBtn.disabled = true;
             scanBtn.classList.add('btn-disabled');
         }
+
+        document.getElementById('emailPluginHelp').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Email Scanner Plugin Guide',
+                html: `
+            <ol style="text-align: left; padding-left: 20px;">
+                <li>Open extension management in your web browser.</li>
+                <li>Turn on developer mode.</li>
+                <li>Download our extension from this link: <a href="https://drive.google.com/file/d/1AWJRfwP0F4gcM9pxc5S9p7M6lfLt6_IU/view?usp=sharing" target="_blank">Click Here</a></li>
+                <li>Unzip the Folder.</li>
+                <li>Load unpacked extension.</li>
+                <li>Open Gmail web client and open the email you want to scan.</li>
+                <li>Click the "Scan Email" button.</li>
+                <li>See the result.</li>
+            </ol>
+        `,
+                icon: 'info',
+                confirmButtonText: 'Got it!',
+                width: 600
+            });
+        });
     });
 </script>
